@@ -1,0 +1,21 @@
+import java.util.*;
+
+class Solution {
+    public Integer[] solution(int[] numbers) {
+        Integer[] answer = {};
+        
+        Set<Integer> hs1 = new HashSet<Integer>();
+        
+        for(int a=0; a < numbers.length; a++){
+            for(int b=a+1; b < numbers.length; b++)
+                    hs1.add(numbers[a]+numbers[b]);
+        }
+        answer = hs1.toArray(new Integer[0]);
+        Arrays.sort(answer);
+        return answer;
+    }
+}
+
+// 참고할점 == sort, set 사용법, toArray정도?
+//set.stream().sorted().mapToInt(Integer::intValue).toArray();
+// 위의 코드 공부하기 Stream(), sorted(), mapToInt
