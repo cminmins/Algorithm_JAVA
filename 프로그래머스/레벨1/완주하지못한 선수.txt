@@ -1,0 +1,33 @@
+import java.util.*;
+
+class Solution {
+    public String solution(String[] participant, String[] completion) {
+        String answer = "";
+        HashMap<String, Integer> hm = new HashMap<>();
+        
+        // 아래 방법에 put(a, get(a) + 1)보다 좋은 방법
+        // put(a, map.getorDefault(a, 0) + 1)
+        // 위에대로 하면 a가 있으면 해당 값 리턴후 + 1, 없으면 0으로 리턴 후 +1
+        for(String str : participant)
+        {
+            // if(hm.get(str) == null)
+            //     hm.put(str, 1);
+            // else
+            //     hm.put(str, hm.get(str) + 1);
+            hm.put(str, hm.getOrDefault(str, 0) + 1);
+        }
+        
+        for(String str : completion)
+        {
+            // if(hm.get(str) != null)
+            //     hm.put(str, hm.get(str) -1);
+            hm.put(str, hm.getOrDefault(str, 0) - 1);
+        }
+        
+        for(String cnt : hm.keySet())
+            if(hm.get(cnt) == 1)
+                answer = cnt.toString();
+        
+        return answer;
+    }
+}

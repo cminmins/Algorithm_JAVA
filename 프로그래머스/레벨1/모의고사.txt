@@ -1,0 +1,38 @@
+// 참고할점
+// Math.max() 함수
+// ArrayList의 toArray화
+// toArray의 파라미터 확인
+// 실제 배열이랑 ArrayList의 차이점이 머지?
+
+import java.util.*;
+
+class Solution {
+    public Integer[] solution(int[] answers) {
+        Integer[] answer = {};
+        
+        int[] A = {1,2,3,4,5}; // index % 5
+        int[] B = {2,1,2,3,2,4,2,5}; // 8
+        int[] C = {3,3,1,1,2,2,4,4,5,5}; // 10
+        
+        int Acnt = 0;
+        int Bcnt = 0;
+        int Ccnt = 0;
+        
+        for(int i = 0; i<answers.length; i++)
+        {
+            if(A[i % 5] == answers[i])  Acnt++;
+            if(B[i % 8] == answers[i])  Bcnt++;
+            if(C[i % 10] == answers[i]) Ccnt++;          
+        }
+    
+        int max_value = Math.max(Math.max(Acnt, Bcnt), Ccnt);
+        
+        ArrayList<Integer> v = new ArrayList<>();
+        if(max_value == Acnt) v.add(1);
+        if(max_value == Bcnt) v.add(2);
+        if(max_value == Ccnt) v.add(3);
+        
+        answer = v.toArray(new Integer[v.size()]);
+        return answer;
+    }
+}
