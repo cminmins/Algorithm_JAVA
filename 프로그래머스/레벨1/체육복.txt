@@ -1,0 +1,39 @@
+// 범위 지정 실수, 이러니까 런타임에러 뜨더라
+// 조건을 확실하게 하기, ex) 옷이 없을때만 검색, 항상 검색해서 가져오게 하니까 2케이스가 실패
+
+class Solution {
+    public int solution(int n, int[] lost, int[] reserve) {
+        int answer = n;
+        int[] student = new int[n+2];
+        // -1이면 도둑맞, 0이면 OK, 1이상이면 여분
+        for(int b : reserve)
+            student[b]++;
+        for(int a : lost)
+            student[a]--;
+        
+        // for(int a : student)
+        //     System.out.println("Cloth : " + a);
+        
+        for(int man : lost)
+        {
+            if(student[man] == -1)
+            {
+                if(student[man-1] > 0){
+                    student[man-1]--; student[man]++;
+                }
+                else if(student[man+1]>0){
+                    student[man+1]--; student[man]++;
+                }
+            }
+        }
+        // System.out.println("----------------");
+         // for(int a : student)
+         //    System.out.println("Cloth : " + a);
+        
+        for(int i = 1; i<=n; i++)
+            if(student[i] == -1)
+                answer--;
+        
+        return answer;
+    }
+}
