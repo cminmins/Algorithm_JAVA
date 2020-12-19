@@ -1,0 +1,31 @@
+// calander API가 있더라
+// 앞으로 달력, 일 관련된거 풀때는 저 API써서 좀더 쉽게 풀면 좋을듯?
+
+class Solution {
+    public String solution(int a, int b) {
+        String answer = "";
+        int whatday = 0;
+        String[] days = {"THU", "FRI", "SAT", "SUN", "MON", "TUE", "WED"};
+        int[] month = {0, 31,29,31,30,31,30,31,31,30,31,30,31};
+        // 각 월마다 몇일인지 계산
+        // int[] month = new int[13];
+        // for(int i = 1; i<13; i++)
+        // {
+        //     if(i == 1 || i==3||i==5||i==7||i==8||i==10||i==12)
+        //         month[i] = 31;
+        //     else if(i==4||i==6||i==9||i==11)
+        //         month[i] = 30;
+        //     else if(i == 2)
+        //         month[i] = 29;
+        // }
+        for(int i=1; i<a; i++)
+            whatday += month[i];
+        whatday += b;
+            
+        // System.out.println(whatday);
+        // System.out.println(days[whatday % 7]);
+        answer = days[whatday % 7];
+        
+        return answer;
+    }
+}
