@@ -1,0 +1,65 @@
+// // 배열
+// // 배열은 크기가 정해져있고, 값의 삭제 등이 자유롭지 않음
+
+
+// //배열 생성후 초기화하면 배열의 주소가 할당된다.
+// int[] i_array = new int[8]; //초기값 0
+// String[] s_array = new String[8]; //초기값 ""  
+// int[] arr = new int[n]; 자바는 길이로 변수값 받는거 가능
+// int[] i_array = {1,2,3,4,5};
+// String[] s_array = {"a","b","c","d"};
+		
+// //배열의 주소를 모두 같은값으로 초기화
+// Arrays.fill(배열, 초기값);//i_array의 모든 index값을 1로 초기화
+
+// // 자바 Array 메소드 (Arrays.method)
+// Arrays.asList(배열) - 배열을 List로 변환해줌
+// Arrays.sort(), 정렬은 기본적으로 오름차순
+// Arrays.sort(a, Collections.reverseOrder()); 내림차순, 첫번째 자리를 기준으로 
+// Sort(array, int fromindex, int toindex) 인덱스의 시작과 끝을 정해 fromindex부터 toindex-1까지만 오름차순 정렬할 수도 있다.
+// Arrays.sort(a, 2,4,Collections.reverseOrder());
+// int[] c = Arrays.copyOf(b, 5); 0~4까지 짤라서 c에 저장
+// copyOfRange(배열, 시작, 종료)
+
+
+// 정렬이 되었다는 가정하에, 이진탐색
+// Arrays.binarySearch(arr, 437));
+
+// Arrays.equals(object[] 1, object[] 2)
+
+
+// // Arrays 클래스와 ArrayList 클래스의 차이점 명확하게
+
+
+import java.util.*;
+
+public class Solution {
+    public int[] solution(int []arr) {
+        ArrayList<Integer> lst = new ArrayList<>();
+        for(int i : arr)
+            lst.add(i);
+        // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
+        
+        for(int i=0; i<lst.size(); i++)
+        {
+            // System.out.println("Before : " + lst);
+            for(int j = i+1; j<lst.size(); j++)
+            {
+                if(lst.get(i) == lst.get(j))
+                    lst.remove(j--);
+                else
+                    break;
+            }
+            // System.out.println("After : " + lst);
+            
+        }
+        
+        // System.out.println("Hello Java");
+
+        int[] answer = new int[lst.size()];
+        for(int i=0; i<lst.size(); i++)
+            answer[i] = lst.get(i);
+            
+        return answer;
+    }
+}

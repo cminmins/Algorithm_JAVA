@@ -1,0 +1,21 @@
+// 엄청 쉬움
+// String 클래스의 함수
+// String.substract()를 사용하는 방법도 있음
+// StringBuilder 클래스의 함수 사용법 익히는 정도?
+// StringExercise 클래스가 먼지 찾아보기
+
+
+class Solution {
+    public StringBuilder solution(String s) {
+        StringBuilder answer = new StringBuilder();
+        
+        if(s.length() % 2 == 1)
+            answer.append(s.charAt(s.length()/2));
+        else
+        {
+            answer.append(s.charAt(s.length()/2 - 1));
+            answer.append(s.charAt(s.length()/2));
+        }
+        return answer;
+    }
+}
