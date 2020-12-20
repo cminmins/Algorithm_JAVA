@@ -32,7 +32,7 @@ Study Algorithm using Java language
  4. 참조
     
     [Title](link)
-    [Google](https://gist.github.com/ihoneymon/652be052a0727ad59601, "참조 사이트")
+    [Google](https://gist.github.com/ihoneymon/652be052a0727ad59601 "참조 사이트")
 
 
 5. 글씨체
@@ -50,7 +50,7 @@ Study Algorithm using Java language
   
 테스트 
 
-  안녕하세요
+    안녕하세요
  
 끝
 
