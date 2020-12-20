@@ -54,3 +54,20 @@ Study Algorithm using Java language
  
 끝
 
+
+자바 자료형
+Data Type
+====================
+
+1. Primitive Type
+
+    * Boolean type 
+      - Boolean
+    * Numeric Type
+      - Integer type (short, int, long)
+      - Floating type (float, double)
+    * charater type
+      - char
+    
+2. Reference Type
+
