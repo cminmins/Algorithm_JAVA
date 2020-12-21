@@ -1,0 +1,25 @@
+// 배울점
+// 정렬하기
+// list의 add, sort
+// toArray
+
+import java.util.*;
+
+class Solution {
+    public Integer[] solution(int[] arr, int divisor) {
+
+        ArrayList<Integer> list = new ArrayList<>();
+        for(int i : arr)
+        {
+            if(i % divisor == 0)
+                list.add(i);
+        }
+        
+        if(list.isEmpty())
+            list.add(-1);
+        
+        Collections.sort(list);
+        Integer[] answer = list.toArray(new Integer[list.size()]);
+        return answer;
+    }
+}
