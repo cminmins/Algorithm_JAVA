@@ -97,11 +97,19 @@ Array vs ArrayList
 - ArrayList 메소드
  ----------------------
     
-    1) .add(T);  가장 끝에 추가 
-    2) .remove(T); 
+    1) .add(index , value);  index가 없으면 가장 끝에 추가
+    2) .remove(index);       특정 인덱스의 객체를 제거, ex) remove(1) [1] 인덱스 삭제
     3) .size();
-    4) 
-    
+    4) .get(index)           특정 인덱스의 값 가져오기
+    5) iterator 탐색
+        ```
+        Iterator iter = value_list.iterator();
+        while(iter.hasNext())
+        {}
+        ```
+    6) .contains(value)     특정 vaule가 있는지 검색, true / false로 반환
+    7) .indexOf(value)      특정 value가 있으면 해당 index 반환, 아니면 -1
+  
     
 - Array <-> ArrayList 변환
  ----------------------------
@@ -122,14 +130,18 @@ Array vs ArrayList
     ```   
     String [] arr = new String[] {"one", two", "three"};
     List<String> list = new ArrayList<>(Arrays.asList(arr));
+    //List<String> list = Array.asList(arr);도 되는지는 모르겠음.
     ```
     아래 2가지는 int일떄도 되는지는 안해봄
     3)  Collections.addAll(list, arr);
     4) list.addAll(Arrays.asList(array));
 
--ArrayList -> Array
+- ArrayList -> Array
     
-    1)   
+    1) toArray(배열) 이용
+    ```
     List<String> list = new ArrayList<String>();
     String[] arr = new String[list.size()]; // arr에는 어떤 배열이 있음
-    list.toArray(arr);
+    //String[] arr = list.toArray(new String[list.size()]);
+    list.toArray(arr); 
+    ```
