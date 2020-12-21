@@ -94,6 +94,9 @@ Array vs ArrayList
     4. Arrayiterator를 통해서 양방향 순회 가능
     
  
+    
+[참조](https://gptjs409.github.io/java/2019/07/31/arrays.html)
+    
 - ArrayList 메소드
  ----------------------
     
@@ -135,6 +138,14 @@ Array vs ArrayList
     아래 2가지는 int일떄도 되는지는 안해봄
     3)  Collections.addAll(list, arr);
     4) list.addAll(Arrays.asList(array));
+
+- = Array.asList(arr)와 = new ArrayList<>(Array.asList(arr))의 차이점
+--------------------------------------------------------------
+  asList는 import java.util.ArrayList가 아니라 java.array.arraylist에 선언되어 있는 정적 클래스.
+  
+  전자의 경우에는 arr와 동일한 주소를 가지기 때문에 기존의 arr를 set()으로 수정할때 이용된다. (추가, 삭제 불가능)
+  후자의 경우에는 새로운 Arraylist 객체를 생성한 것으로 추가 삭제, 크기 변경 등이 가능함
+
 
 - ArrayList -> Array
     
