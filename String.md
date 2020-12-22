@@ -47,6 +47,10 @@ String 클래스
       ```
       이렇게 해서 null인지 확인하는 방법이 있다.
       
+      ex) String str = "asdasd";
+          String.valueOf(str);
+          str.toString();
+      
  .compareTo(String)
  
     a.compareTo(b)을 하면 두개의 string을 앞에서 순차적으로 비교 (a - b)
