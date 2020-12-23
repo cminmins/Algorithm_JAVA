@@ -1,0 +1,64 @@
+import java.util.*;
+
+class Solution {
+    public int solution(int[] priorities, int location) {
+        int answer = 0;
+        int max = 0;
+        int index = 0;
+        int n = priorities.length;
+        
+        ArrayList<Integer> q = new ArrayList<>();
+        ArrayList<Integer> l = new ArrayList<>();
+        
+        // 최대값을 찾을 배열
+        for(int i = 0; i<n; i++)
+            q.add(i);
+        
+        // 이게 끝나면 최대값의 인덱스를 찾음
+        
+        for(int k=0; k<n; k++)
+        {
+            for(Integer i : q)
+                if(max < priorities[i])
+                {
+                    max = priorities[i];
+                    index = i;
+                }
+//             System.out.println("Find Max : " + max + " Index : "+ index);
+            
+//             System.out.println("Queue : " + q);
+            
+            // for(int t=0; t<q.size(); t++)
+            //     System.out.println("q.get(0) : " + q.get(0));
+            
+            for(int i = 0; i < q.size(); i++)
+            {
+                if(index == q.get(i))
+                {   
+                    // System.out.println("Index : " + index + ", i : " + i + ", q.get(i) : " + q.get(i));
+                    l.add(q.get(i));
+                    // System.out.println("Last : " + l);
+                    max = 0;
+                    index = 0;
+                    q.remove(i--);
+                    break;
+                }
+                else
+                {
+                    q.add(q.get(i));
+                    q.remove(i--);
+                }
+            }
+        }
+        
+        answer = l.indexOf(location) + 1;
+//         for(Integer i : l)
+//         {
+//             System.out.println(i);
+//             if(i == location)
+//                 answer = i+1;
+        
+//         }
+        return answer;
+    }
+}

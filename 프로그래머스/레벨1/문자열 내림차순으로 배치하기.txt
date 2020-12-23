@@ -1,0 +1,17 @@
+import java.util.Collections;
+import java.util.*;
+
+class Solution {
+    public String solution(String s) {
+        String[] spl = s.split("");
+        String answer = "";
+        Arrays.sort(spl, Collections.reverseOrder());
+        
+        StringBuilder str = new StringBuilder();
+        
+        for(String a : spl)
+            str.append(a);
+        
+        return str.toString();
+    }
+}

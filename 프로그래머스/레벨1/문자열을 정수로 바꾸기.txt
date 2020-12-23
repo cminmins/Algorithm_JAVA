@@ -1,0 +1,13 @@
+// 요거는 answer = answer * 10 + str.get(index) 이런식으로 해서 하고, str.get(0)이 +냐 -에 따라서 * -1해주면됨
+
+class Solution {
+    public int solution(String s) {
+        int answer = 0;
+        
+        
+        answer = Integer.parseInt(s);
+  
+        
+        return answer;
+    }
+}
