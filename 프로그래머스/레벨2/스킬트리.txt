@@ -1,0 +1,31 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
+class Solution {
+    public int solution(String skill, String[] skill_trees) {
+        int answer = 0;
+        char[] str = skill.split("");
+        ArrayList<String> list = new ArrayList<>(Arrays.asList(str));
+        
+        for(String item : skill_trees)
+        {
+            int index = 0;
+            int char_i = 0;
+            for(int i=0; i<item.length(); i++)
+            {
+                char_i = list.indexOf(String.valueOf(item.charAt(i)));
+                if(char_i > index)
+                {
+                    index = -1;
+                    break;
+                }
+                else if(char_i == index)
+                    index++;               
+            }
+            if(index >= 0)
+                answer++;
+            index = 0;
+        }
+        return answer;
+    }
+}
