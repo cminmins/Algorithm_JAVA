@@ -36,6 +36,20 @@ String 클래스
       해당 index에 위치한 문자를 return해줌, char형으로
       char test = str.charAt(index);
   
+  .toCharArray()
+  
+      String을 char[] 배열로 전환하여 반환한다.
+      String str = "Hello world";
+      char[] new_str = str.toCharArray();
+      split은 string을 반환하는거랑 차이가 있음.
+  
+ .split(String a)
+ 
+    a를 기준으로 string을 나눌 수 있음 배열로 return함
+    ```java
+    String[] stlist = str.split(" ");
+    
+  
   .valueOf(개체)
   
       오브젝트의 값을 String으로 변환 할때 사용
@@ -70,15 +84,6 @@ String 클래스
  .substring(시작, 끝+1)
  
     index [시작] ~ [끝]까지 잘라서 return 함
- 
- .split(String a)
- 
-    a를 기준으로 string을 나눌 수 있음 배열로 return함
-    ```java
-    String[] stlist = str.split(" ");
-    
-    
-    
  
  .replace(String a, String b)
  
