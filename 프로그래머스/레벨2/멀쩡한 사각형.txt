@@ -1,0 +1,28 @@
+// 배울점
+// 최대공약수, 최소공배수 구하는 방법
+// 1억이 넘어가거나 곱했을때 int 범위(21억)이 넘어가는 경우의 예외 생각하기
+
+class Solution {
+    public long solution(long w, long h) {
+        long answer = 0;
+        long lw = (long)w;
+        long lh = (long)h;
+        if(w > h)
+        {
+            long temp = lh;
+            lh = lw;
+            lw = temp;
+        }
+        
+        long temp = 1;
+        while(temp > 0)
+        {
+            temp = lh % lw;
+            lh = lw;
+            lw = temp;
+        }        
+        answer = (long) w * (long) h - ((long) w + (long) h - lh);
+        
+        return answer;
+    }
+}

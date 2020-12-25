@@ -1,0 +1,45 @@
+import java.util.*;
+
+class Solution {
+    public ArrayList<Integer> solution(int[] progresses, int[] speeds) {
+        ArrayList<Integer> answer = new ArrayList<>();
+        // 배포할때마다 remove(0) 할거임.
+        ArrayList<Integer> lp = new ArrayList<Integer>(progresses.length);
+        ArrayList<Integer> ls = new ArrayList<Integer>(speeds.length);
+        //int[] -> ArrayList<Integer>로 변환
+        for(int item : progresses)
+            lp.add(item);
+        for(int item : speeds)
+            ls.add(item);
+        
+        while(lp.size() != 0)
+        {
+            Integer cnt = 0;
+            
+            Integer m = (100 - lp.get(0)) / ls.get(0);
+            if((100 - lp.get(0)) % ls.get(0) > 0)
+                m++;
+            
+            // 0번째 인덱스 최소 일자 바로 계산
+            for(int i=0; i<lp.size(); i++)
+                lp.set(i, lp.get(i) + (ls.get(i) * m));
+            
+            // 완료된 프로세스 검사
+            while(lp.size() != 0)
+            {
+                if(lp.get(0) >= 100)
+                {
+                    cnt++;
+                    lp.remove(0);
+                    ls.remove(0);
+                    // System.out.println("Remove = " + ls.get(0));
+                }
+                else
+                    break;
+            }
+            answer.add(cnt);
+            cnt = 0;
+        }        
+        return answer;
+    }
+}
