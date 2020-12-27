@@ -1,0 +1,32 @@
+// 이번에 배운점
+// 규칙을 찾는데 거의 이틀내내 찾음. 
+// 처음엔 3진법과 유사해서 3으로 나눴는데 % 3 == 0 경우엔 규칙에 맞지않아서
+// 4로도 나눠보고 이것저것 다해봣는데 결국엔 나머지가 0일때는 -1 해주는 규칙이었음
+// 규칙을 추측할때는 써가면서 풀어보면 유사성이 보여서 찾을수있을거라 생각함
+// 너무 복잡하게 꼬아서 생각해서 실수함
+// StringBuffer와 StringBuilder의 차이점이 궁금함
+
+
+import java.util.*;
+
+class Solution {
+    public String solution(int n) {
+        StringBuilder str = new StringBuilder();
+        String[] ch = {"4","1","2"};
+        int num = n;
+        
+        while(num != 0)
+        {  
+            // System.out.println("num % 3 = " + num%3 + ", str : " + str);
+            str.append(ch[num % 3]);
+            // System.out.println("str : " + str);
+            if(num % 3 == 0)
+                num -= 1;
+            num /= 3;
+        }
+        
+        String answer = str.reverse().toString();
+        // String answer = "";
+        return answer;
+    }
+}
