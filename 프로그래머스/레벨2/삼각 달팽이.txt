@@ -1,0 +1,41 @@
+import java.util.Arrays;
+
+class Solution {  
+    public int[] solution(int n) {
+        int size = 0;
+        for(int i = 1 ; i<=n; i++)
+            size += i;
+        int[] answer = new int[size];
+        
+        int min = 0;
+        int max = n;
+        int index = 0;
+        int t = 1;
+        
+        while(min < max)
+        {
+            for(int i=min; i<max; i++)
+            {
+                answer[index + i] = t++;
+                index += i;                
+            }
+            min++;
+            
+            for(int i=min; i<max; i++)
+            {
+                answer[index + 1] = t++;
+                index += 1;
+            }
+            min++;
+            
+            for(int i=max; i>min; i--)
+            {
+                answer[index - i] = t++;
+                index -= i;                
+            }
+            max--;
+            // System.out.println(Arrays.toString(answer));
+        }
+        return answer;
+    }
+}
