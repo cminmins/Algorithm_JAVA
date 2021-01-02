@@ -1,0 +1,42 @@
+import java.util.Collections;
+import java.util.ArrayList;
+
+class Solution {
+    public int solution(String s) {
+        int answer = 0;
+        // ArrayList<String> sc = new ArrayList();
+        ArrayList<Integer> ans = new ArrayList();
+               
+        // for문 2번은 몇단위로 문자열을 구분할지 찾는거
+        for(int i=1; i< s.length(); i++){
+            // 찾을 문자열
+            String sub = s.substring(0,i);
+            // sub -> # 변환한 문자열
+            String rep = s.replace(sub, "#");
+            
+            int cnt = 1;
+            // #로 변환한 문자열에서 # 개수 찾기
+            for(int t = 0; t<rep.length()-1; t++){
+                if(rep.charAt(t) == '#' && (rep.charAt(t) == rep.charAt(t+1)))
+                    cnt++;
+                else
+                    break;
+            }
+            if(cnt > 1){
+                System.out.println("sub : " + sub + ", rep : " + rep + ", cnt : " + cnt);
+                Integer n_size = s.length() - (sub.length() * (cnt - 1)) + 1;
+                ans.add(n_size);
+            }
+            // System.out.println(rep);
+
+        }
+        Collections.sort(ans);
+        // System.out.println(ans);
+        
+        if(ans.isEmpty())
+            answer = s.length();
+        else
+            answer = ans.get(0);
+        return answer;
+    }
+}
