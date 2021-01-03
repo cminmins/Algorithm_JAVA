@@ -1,42 +1,54 @@
+// 진짜 문제풀이 여러번 바꿔가면서 겨우 풀었다
+// 오후 9시 ~ 오전12:50분까지 품
+// 대략 4시간 걸렸네....
+// 이번 문제에서 건질거
+// substring, equals, Math.log10, for문 조건 증가조건 바꾸는거
+// 처음 생각했을땐 문제가 중복 문자열 제거가 시작 0 인덱스부터 #개 씩 제거하는지 몰랐음
+// 그냥 전체 문자열에서 부분 문자열 조합을 찾아서 계산할 생각을 함.
+// 오히려 문자열 단위가 0 인덱스부터 몇개씩 단위로 짜른다고 해서 문제가 쉬웠던거 같음
+
+
 import java.util.Collections;
 import java.util.ArrayList;
+import java.lang.Math;
 
 class Solution {
     public int solution(String s) {
         int answer = 0;
-        // ArrayList<String> sc = new ArrayList();
-        ArrayList<Integer> ans = new ArrayList();
-               
-        // for문 2번은 몇단위로 문자열을 구분할지 찾는거
-        for(int i=1; i< s.length(); i++){
-            // 찾을 문자열
-            String sub = s.substring(0,i);
-            // sub -> # 변환한 문자열
-            String rep = s.replace(sub, "#");
-            
-            int cnt = 1;
-            // #로 변환한 문자열에서 # 개수 찾기
-            for(int t = 0; t<rep.length()-1; t++){
-                if(rep.charAt(t) == '#' && (rep.charAt(t) == rep.charAt(t+1)))
+        ArrayList<Integer> ans = new ArrayList<>();
+        
+        // 문자열 개수
+        for(int i = 1; i <= s.length(); i++)
+        {
+            int total = s.length();
+            int cnt = 0;
+            int st;
+            for(st = 0; st + 2 * i <= s.length(); st += i)
+            {
+                if(s.substring(st, st+i).equals(s.substring(st + i, st + 2*i))){
                     cnt++;
+                    // System.out.println("Count Substring : " + s.substring(st, st+i));
+                }
                 else
-                    break;
+                    if(cnt > 0){
+                        // System.out.println("Cal Substring : " + s.substring(st, st+i));
+                        total = total - (i * cnt) + ((int)Math.log10(cnt+1) + 1);
+                        cnt = 0;
+                    }
             }
-            if(cnt > 1){
-                System.out.println("sub : " + sub + ", rep : " + rep + ", cnt : " + cnt);
-                Integer n_size = s.length() - (sub.length() * (cnt - 1)) + 1;
-                ans.add(n_size);
+            if(cnt > 0){
+                // System.out.println("Final Cal Substring : " + s.substring(st, st+i));
+                total = total - (i * cnt) + ((int)Math.log10(cnt+1) + 1);
             }
-            // System.out.println(rep);
-
+            ans.add(total);
         }
         Collections.sort(ans);
-        // System.out.println(ans);
         
         if(ans.isEmpty())
             answer = s.length();
         else
             answer = ans.get(0);
+        
         return answer;
     }
 }
