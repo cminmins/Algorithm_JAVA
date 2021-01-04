@@ -9,3 +9,6 @@ https://velog.io/@cminmins/프로그래머스-레벨2-문자열-압축
 
 Wrapper Class란?
 https://velog.io/@cminmins/Wrapper-Class란
+
+String <-> int 변환
+https://velog.io/@cminmins/String-int-변환
