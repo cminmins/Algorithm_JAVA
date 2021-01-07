@@ -1,0 +1,45 @@
+import java.util.Collections;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.PriorityQueue;
+
+class Solution {
+    public int solution(int[] scoville, int K) {
+        int answer = 0;
+        // ArrayList<Integer> arr = new ArrayList<>();
+        // for(int i : scoville)
+        //     if(i >= K)
+        //         continue;
+        //     else
+        //         arr.add(i);
+        
+        PriorityQueue<Integer> arr = new PriorityQueue<>();
+        for(int i : scoville)
+            if(i>=K)
+                continue;
+            else
+                arr.offer(i);
+        
+        int nsc = 0;
+        // Collections.sort(arr);
+        
+        while(arr.peek() < K){
+            if(arr.size() < 2)
+                return -1;
+            else{               
+                   nsc = arr.poll() + arr.poll() * 2;
+                   arr.offer(nsc);
+                }
+            // 일반 ArrayList + sort로 풀었을때 시간초과 O(n^2)인듯
+                // {
+                //     nsc = arr.get(0) + arr.get(1) * 2;
+                //     arr.remove(0);
+                //     arr.set(0, nsc);
+                // }
+                // if(arr.size() == 1 && arr.get(0) < K)
+                // Collections.sort(arr);
+            answer++;
+            }
+        return answer;
+        }
+}

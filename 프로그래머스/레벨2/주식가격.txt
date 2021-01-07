@@ -1,0 +1,53 @@
+import java.util.Stack;
+import java.util.Collections;
+
+class Solution {
+    
+    class stock{
+        int time;
+        int prices;
+        
+        stock(int time, int prices){
+            this.time = time;
+            this.prices = prices;
+        }
+        
+        public int gettime(){
+            return this.time;
+        }
+        public int getprice(){
+            return this.prices;
+        }
+    }
+    
+    public int[] solution(int[] prices) {
+        int time = prices.length;
+        int[] answer = new int[time];
+        Stack<stock> st = new Stack<>();
+        
+        for(int i=0; i<time; i++){
+            if(st.isEmpty())
+                st.push(new stock(i, Integer.valueOf(prices[i])));
+            else{
+                while(!st.isEmpty() && st.peek().getprice() > prices[i]){
+                    answer[st.peek().gettime()] = i - st.peek().gettime();
+                    st.pop();
+                }
+                st.push(new stock(i, Integer.valueOf(prices[i])));                
+            }
+        }
+        
+        while(!st.isEmpty()){
+            int t = st.peek().gettime();
+            int p = st.peek().getprice(); 
+            st.pop();
+            answer[t] = time - t - 1;      
+        }
+            
+        // for(stock s : st)
+        //     Sysetm.out.println("T : " + s.gettime());
+        // System.out.println(answer);
+        
+        return answer;
+    }
+}
