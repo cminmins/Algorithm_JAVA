@@ -1,0 +1,31 @@
+class Solution {
+    
+    int ans = 0;
+    
+    public void rep(int[] arr, int sum, int target, int index, int size){
+        if(index == size){
+            // System.out.println("/// Last //// : index = " + index + ", sum = " + sum);
+            if(sum == target){
+                ans++;   
+            }
+            return;
+        }
+        else{
+            // for(int i = index; i<size; i++)
+            // {
+                // System.out.println("index = " + index + ", sum = " + sum);
+                rep(arr, sum + arr[index], target, index+1, size);
+                rep(arr, sum - arr[index], target, index+1, size);
+            // }
+            return;
+        }
+    }
+    
+    
+    public int solution(int[] numbers, int target) {
+        int answer = 0;
+        rep(numbers, 0, target, 0, numbers.length);
+        answer = ans;
+        return answer;
+    }
+}
