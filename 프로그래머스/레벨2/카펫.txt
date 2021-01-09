@@ -1,0 +1,37 @@
+import java.util.ArrayList;
+
+class Solution {
+    public int[] solution(int brown, int yellow) {
+        int[] answer = {};
+        ArrayList<Integer> arr = new ArrayList<>();
+    
+        // // yellow의 모든 약수 구하기
+        // for(int i=1; i<= yellow; i++){
+        //     if(yellow % i == 0)
+        //         arr.add(i);            
+        // }
+        // for(int i=0; i<arr.size(); i++){
+        //     int y = arr.get(i);
+        //     int x = yellow / y;
+        //     if(y > x)
+        //         break;
+        //     else{
+        //         if(brown == (y * 2) + (x * 2) + 4){
+        //             answer = new int[] {x+2, y+2};
+        //         }
+        //     }
+        // }
+        
+        // 결과 나왔을때 바로 Return 해버리면 당연히 y <= x임.
+        // 굳이 리스트에 안넣고도 쉽게 풀 수 있는 방법 
+        for(int y = 1; y<=yellow; y++){
+            if(yellow % y == 0){
+                if(brown == (y + yellow/y) * 2 + 4)
+                    return new int[] {yellow/y + 2, y+2};
+            }
+            
+        }
+        
+        return answer;
+    }
+}
