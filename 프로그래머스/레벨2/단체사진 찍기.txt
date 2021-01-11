@@ -1,0 +1,47 @@
+class Solution {
+    
+    int[] alpha = new int[26];
+    int ans = 0;
+    String base = "ACFJMNRT";
+    
+    public void dfs(String[] data, int index, int total){
+        if(total == 8){
+            for(String str : data){
+                char t = str.charAt(3);
+                int a = alpha[str.charAt(0)-65];
+                int b = alpha[str.charAt(2)-65];
+                int dis = str.charAt(4) - 48;
+                
+                if(t == '='){
+                    if(Math.abs(a-b) != dis + 1)
+                        return;
+                }
+                else if(t == '<'){
+                    if(Math.abs(a-b) >= dis + 1)
+                        return;
+                }
+                else if(t == '>'){
+                    if(Math.abs(a-b) <= dis + 1)
+                        return;
+                }
+            }
+            ans++;
+            return;
+        }
+        
+        for(int k=0; k<8; k++){
+            if(alpha[base.charAt(k) - 65] == 0){
+                alpha[base.charAt(k) - 65] = index;
+                dfs(data, index+1, total+1);
+                alpha[base.charAt(k) - 65] = 0;
+            }
+        }
+    return;
+    }
+    
+    
+    public int solution(int n, String[] data) {
+        dfs(data, 1, 0);
+        return ans;
+    }
+}
