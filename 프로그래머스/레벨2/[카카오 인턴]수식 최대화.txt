@@ -1,0 +1,35 @@
+import java.util.ArrayList;
+
+class Solution {
+    
+    ArrayList<Character> exp = new ArrayList<>();
+    ArrayList<Integer> arr = new ArrayList<>();cc
+    Integer max = 0;
+    public void dfs(int cnt, char[] c){
+        if(cnt == 3){
+            for(int i=0; i<3; i++){
+                char t = c[i];
+                while(exp.indexOf(t) > 0){
+                    int index = exp.indexOf(t);
+                    Integer temp = arr.get(index) + arr.get(index+1);
+                    arr.delete(index, index+1);
+                    exp.delete(index);
+                    arr.insert(index, temp);
+                }
+            }
+            
+            if(max < arr.get(0))
+                max = arr.get(0);
+        }
+        
+        
+        
+    }
+    
+    public long solution(String expression) {
+        long answer = 0;
+        
+        
+        return answer;
+    }
+}
