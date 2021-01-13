@@ -1,27 +1,64 @@
 import java.util.ArrayList;
 
 class Solution {
+    // 기본 수식
+    ArrayList<Character> exp_base = new ArrayList<>();
+    ArrayList<Long> arr_base = new ArrayList<>();
     
-    ArrayList<Character> exp = new ArrayList<>();
-    ArrayList<Integer> arr = new ArrayList<>();cc
-    Integer max = 0;
-    public void dfs(int cnt, char[] c){
+    // 우선순위 정하기
+    Character[] sample = {'*', '-', '+'};
+    boolean[] sample_bool = new boolean[3];
+    
+    // 각 부호의 위치
+    int[] prio = new int[3];
+    
+    
+    Long max = 0L;
+    public void dfs(int cnt){
         if(cnt == 3){
+            //리스트 복사하기 exp, arr
+            ArrayList<Character> exp = (ArrayList<Character>) exp_base.clone();
+            ArrayList<Long> arr = (ArrayList<Long>) arr_base.clone();
+            
+            // System.out.println(prio[0] + " " + prio[1] + " " + prio[2]);
             for(int i=0; i<3; i++){
-                char t = c[i];
-                while(exp.indexOf(t) > 0){
+                char t = sample[prio[i]];
+                while(exp.indexOf(t) >= 0){
                     int index = exp.indexOf(t);
-                    Integer temp = arr.get(index) + arr.get(index+1);
-                    arr.delete(index, index+1);
-                    exp.delete(index);
-                    arr.insert(index, temp);
+                    Long temp = 0L;
+                    if(t == '*')
+                        temp = arr.get(index) * arr.get(index+1);
+                    else if(t == '-')
+                        temp = arr.get(index) - arr.get(index+1);
+                    else if(t == '+')
+                        temp = arr.get(index) + arr.get(index+1);
+                    
+                    // System.out.println(arr);
+                    // System.out.println(exp);
+                    arr.remove(index);
+                    arr.remove(index);
+                    exp.remove(index);
+                    arr.add(index, temp);
+                    
+                    // System.out.println(arr);
+                    // System.out.println(exp);
                 }
             }
-            
-            if(max < arr.get(0))
-                max = arr.get(0);
+            if(max < Math.abs(arr.get(0)))
+                max = Math.abs(arr.get(0));
+            // System.out.println(max);
         }
         
+        for(int i=0; i<3; i++){
+            if(sample_bool[i] == false){
+                sample_bool[i] = true;
+                prio[cnt] = i;
+                dfs(cnt+1);
+                prio[cnt] = 0;
+                sample_bool[i] = false;
+            }
+        }
+            
         
         
     }
@@ -29,7 +66,21 @@ class Solution {
     public long solution(String expression) {
         long answer = 0;
         
+        int index = 0;
+        for(int i=0; i<expression.length(); i++){
+            if(expression.charAt(i) == '*' || expression.charAt(i) == '-' 
+               || expression.charAt(i) == '+'){
+                arr_base.add(Long.parseLong(expression.substring(index, i)));
+                exp_base.add(expression.charAt(i));
+                index = i + 1;
+            }
+        }
+        arr_base.add(Long.parseLong(expression.substring(index, expression.length())));
+        // System.out.println(arr_base);
+        // System.out.println(exp_base);
         
-        return answer;
+        
+        dfs(0);
+        return max;
     }
 }
