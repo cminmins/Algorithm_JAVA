@@ -1,0 +1,61 @@
+class Solution {
+    
+    
+//     int max = 0;
+//     public void dfs(int cnt, int fin, int sum, int[][] arr, boolean[][] map){
+//         if(cnt == fin){
+//             if(max < sum)
+//                 max = sum;
+//             return;
+//         }
+        
+//         for(int i=0; i<4; i++){      
+            
+//             if(map[cnt][i] == false){
+//                 map[cnt][i] = true;
+//                 dfs(cnt + 1, fin, sum + arr[cnt][i], arr, map);
+//                 map[cnt][i] = false;  
+//             }      
+//         }
+//         return;        
+//     }
+    
+    int solution(int[][] land) {
+        
+        // boolean[][] map = new boolean[land.length][4];
+        // dfs(0, land.length, 0, land, map);
+        
+        
+        int[][] cnt = new int[land.length][4];
+        
+        cnt[0][0] = land[0][0];
+        cnt[0][1] = land[0][1];
+        cnt[0][2] = land[0][2];
+        cnt[0][3] = land[0][3];
+        
+        for(int i=1; i<land.length; i++){
+            for(int j=0; j<4; j++){
+                for(int k=0; k<4; k++){
+                    if(j == k)
+                        continue;
+                    else{
+                        if(land[i][j] + cnt[i-1][k] > cnt[i][j]){
+                            // System.out.println("----AAAAA-----");
+                            // System.out.println("i : " + i + ", j : " + j + ", k : " + k + ", Cnt[i][j] : " + cnt[i][j]);
+                            cnt[i][j] = land[i][j] + cnt[i-1][k];
+                            // System.out.println("i : " + i + ", j : " + j + ", k : " + k + ", Cnt[i][j] : " + cnt[i][j]);
+                            // System.out.println("----BBBBB-----");
+
+                        }
+                    }
+                }
+            }
+        }
+        
+        int max = 0;
+        for(int i=0; i<4; i++)
+            if(max < cnt[land.length - 1][i])
+                max = cnt[land.length - 1][i];
+        return max;
+    }
+}
