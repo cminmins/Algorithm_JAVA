@@ -72,55 +72,87 @@ class Solution
 //             }
 //         }
 //         return answer;
-        int answer = 0;
-        int[] xp = {1, 1, 0};
-        int[] yp = {0, 1, 1};
-        int b_yl = board.length;
-        int b_xl = board[0].length;
+//         int answer = 0;
+//         int[] xp = {1, 1, 0};
+//         int[] yp = {0, 1, 1};
+//         int b_yl = board.length;
+//         int b_xl = board[0].length;
         
-        int[][] value = new int[b_yl][b_xl];
+//         int[][] value = new int[b_yl][b_xl];
             
         
-        for(int y = 0 ; y<b_yl; y++)
-        {
-            for(int x=0; x<b_xl; x++){
-                if(board[y][x] == 1 && value[y][x] == 0)
-                    value[y][x] = 1;
-                if(board[y][x] == 1){
-                    for(int k=0; k<3; k++){
-                        if(y+yp[k] < b_yl && x + xp[k] < b_xl){
-                            // System.out.println("check y : " + (y+yp[k]) + " x : " + (x + xp[k]));
-                            if(board[y + yp[k]][x + xp[k]] == 0){
-                                for(int t=0; t<3; t++){
-                                    if(y+yp[t] < b_yl && x + xp[t] < b_xl)
-                                        value[y + yp[t]][x + xp[t]] = 0;
-                                }
-                                break;
-                            }
+//         for(int y = 0 ; y<b_yl; y++)
+//         {
+//             for(int x=0; x<b_xl; x++){
+//                 if(board[y][x] == 1 && value[y][x] == 0)
+//                     value[y][x] = 1;
+//                 if(board[y][x] == 1){
+//                     for(int k=0; k<3; k++){
+//                         if(y+yp[k] < b_yl && x + xp[k] < b_xl){
+//                             // System.out.println("check y : " + (y+yp[k]) + " x : " + (x + xp[k]));
+//                             if(board[y + yp[k]][x + xp[k]] == 0){
+//                                 for(int t=0; t<3; t++){
+//                                     if(y+yp[t] < b_yl && x + xp[t] < b_xl)
+//                                         value[y + yp[t]][x + xp[t]] = 0;
+//                                 }
+//                                 break;
+//                             }
                            
-                            if(k == 2){
-                                // System.out.println("Come in");
-                                for(int t=0; t<3; t++){
-                                    if(y+yp[t] < b_yl && x + xp[t] < b_xl &&
-                                    value[y + yp[t]][x + xp[t]] < value[y][x])
-                                    value[y + yp[t]][x + xp[t]] = value[y][x] + 1;
-                                }
-                            }
+//                             if(k == 2){
+//                                 // System.out.println("Come in");
+//                                 for(int t=0; t<3; t++){
+//                                     if(y+yp[t] < b_yl && x + xp[t] < b_xl &&
+//                                     value[y + yp[t]][x + xp[t]] < value[y][x])
+//                                     value[y + yp[t]][x + xp[t]] = value[y][x] + 1;
+//                                 }
+//                             }
                             
-                        }
-                    }
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+        
+//         for(int y=0; y<b_yl; y++){
+//             for(int x=0; x<b_xl; x++){
+//                 if(answer < value[y][x])
+//                     answer = value[y][x];
+//                 // System.out.print(value[y][x] + " ");
+//             }
+//             // System.out.println("");
+//         }
+        
+//         return (int)Math.pow(answer, 2);
+        int answer = 0;
+        int yl = board.length;
+        int xl = board[0].length;
+        int[][] map = new int[yl][xl];
+        
+        
+        for(int y=0; y<yl; y++)
+            for(int x=0; x<xl; x++)
+                if(board[y][x] == 1)
+                    map[y][x] = 1;
+                
+        for(int y=1; y<yl; y++){
+            for(int x=1; x<xl; x++){
+                if(board[y][x] == 1){
+                    map[y][x] = Math.min(Math.min(map[y-1][x], map[y][x-1]), map[y-1][x-1]) + 1;
                 }
+                // if(answer < map[y][x])
+                //     answer = map[y][x];
             }
         }
         
-        for(int y=0; y<b_yl; y++){
-            for(int x=0; x<b_xl; x++){
-                if(answer < value[y][x])
-                    answer = value[y][x];
-                // System.out.print(value[y][x] + " ");
+        for(int y=0; y<yl; y++){
+            for(int x=0; x<xl; x++){
+                if(answer < map[y][x])
+                    answer = map[y][x];
+                // System.out.print(map[y][x] + " ");
             }
             // System.out.println("");
         }
+        
         
         return (int)Math.pow(answer, 2);
     }
