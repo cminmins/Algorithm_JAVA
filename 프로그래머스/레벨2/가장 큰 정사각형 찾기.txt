@@ -1,0 +1,127 @@
+import java.util.Queue;
+import java.util.LinkedList;
+import java.lang.Math;
+
+
+class Solution
+{
+//     class pos{
+//         int step;
+//         int x;
+//         int y;
+        
+//         pos(int step, int y, int x){
+//             this.step = step;   
+//             this.x = x;
+//             this.y = y;    
+//         }
+        
+//         public int getstep(){
+//             return this.step;
+//         }
+        
+//         public int getx(){
+//             return this.x;
+//         }
+        
+//         public int gety(){
+//             return this.y;
+//         }
+//     }
+    
+    
+    public int solution(int [][]board)
+    {
+//         int answer = 0;
+//         boolean[][] map = new boolean[board.length][board[0].length];
+//         Queue<pos> q = new LinkedList<>();
+//         int[] x = {1, 1, 0};
+//         int[] y = {0, 1, 1};
+        
+//         for(int py = 0; py < board.length; py++){
+//             for(int px = 0; px < board[py].length; px++){
+//                 if(board[py][px] == 1 && map[py][px] == false){
+//                     q.offer(new pos(1, py, px));
+//                     map[py][px] = true;
+//                     while(!q.isEmpty()){
+//                         int qy = q.peek().gety();
+//                         int qx = q.peek().getx();
+//                         int qs = q.peek().getstep();
+//                         q.poll();
+//                         for(int k=0; k<3; k++){
+//                             int fqy = qy + y[k];
+//                             int fqx = qx + x[k];
+                            
+//                             if( (fqy >= 0 && fqy < board.length &&
+//                                 fqx >= 0 && fqx < board[py].length) &&
+//                                 board[fqy][fqx] == 1 
+//                               ){
+//                                     q.offer(new pos(qs + 1, fqy, fqx));
+//                                     map[fqy][fqx] = true;
+//                             }
+//                             else{
+//                                 if(answer < (int)Math.pow(qs, 2))
+//                                     answer = (int)Math.pow(qs, 2);
+//                                 q.clear();
+//                                 break;
+//                             }
+//                         }
+//                     }
+//                 }
+                
+//             }
+//         }
+//         return answer;
+        int answer = 0;
+        int[] xp = {1, 1, 0};
+        int[] yp = {0, 1, 1};
+        int b_yl = board.length;
+        int b_xl = board[0].length;
+        
+        int[][] value = new int[b_yl][b_xl];
+            
+        
+        for(int y = 0 ; y<b_yl; y++)
+        {
+            for(int x=0; x<b_xl; x++){
+                if(board[y][x] == 1 && value[y][x] == 0)
+                    value[y][x] = 1;
+                if(board[y][x] == 1){
+                    for(int k=0; k<3; k++){
+                        if(y+yp[k] < b_yl && x + xp[k] < b_xl){
+                            // System.out.println("check y : " + (y+yp[k]) + " x : " + (x + xp[k]));
+                            if(board[y + yp[k]][x + xp[k]] == 0){
+                                for(int t=0; t<3; t++){
+                                    if(y+yp[t] < b_yl && x + xp[t] < b_xl)
+                                        value[y + yp[t]][x + xp[t]] = 0;
+                                }
+                                break;
+                            }
+                           
+                            if(k == 2){
+                                // System.out.println("Come in");
+                                for(int t=0; t<3; t++){
+                                    if(y+yp[t] < b_yl && x + xp[t] < b_xl &&
+                                    value[y + yp[t]][x + xp[t]] < value[y][x])
+                                    value[y + yp[t]][x + xp[t]] = value[y][x] + 1;
+                                }
+                            }
+                            
+                        }
+                    }
+                }
+            }
+        }
+        
+        for(int y=0; y<b_yl; y++){
+            for(int x=0; x<b_xl; x++){
+                if(answer < value[y][x])
+                    answer = value[y][x];
+                // System.out.print(value[y][x] + " ");
+            }
+            // System.out.println("");
+        }
+        
+        return (int)Math.pow(answer, 2);
+    }
+}
