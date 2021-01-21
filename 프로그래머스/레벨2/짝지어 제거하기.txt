@@ -1,0 +1,41 @@
+// 괄호 문제, 중간 중간 끼는거는 자료구조 Stack을 이용하여 해결.
+한번에 다 넣는것도 아니고 탐색해가면서 조건에 맞게 push, pop을 함
+
+import java.util.Stack;
+// import java.lang.StringBuilder;
+
+class Solution
+{
+    public int solution(String s)
+    {
+        // StringBuilder str = new StringBuilder(s);
+        // int[] arr = new int[str.length()];
+        // for(int i=0; i<str.length()-1;){
+        //     if(str.charAt(i) == str.charAt(i+1)){
+        //         str.delete(i, i+2);
+        //         i = 0;
+        //     }
+        //     else{
+        //         i++;
+        //     }
+        // }
+        // if(str.length() == 0)
+        //     return 1;
+        // else
+        //     return 0;
+        
+        Stack<Character> st = new Stack<>();
+        
+        for(char c : s.toCharArray()){
+            if(!st.isEmpty() && st.peek() == c)
+                st.pop();
+            else
+                st.push(c);
+        }
+        
+        if(st.isEmpty())
+            return 1;
+        else
+            return 0;
+    }
+}
