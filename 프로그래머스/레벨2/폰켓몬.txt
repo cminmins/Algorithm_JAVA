@@ -1,0 +1,16 @@
+import java.util.HashSet;
+
+class Solution {
+    public int solution(int[] nums) {
+        HashSet<Integer> h = new HashSet<>();
+        for(int i : nums)
+            h.add(i);
+        
+        
+        if(nums.length/2 > h.size())
+            return h.size();
+        else
+            return nums.length/2;
+        
+    }
+}
