@@ -18,3 +18,5 @@ https://velog.io/@cminmins/ArrayList-method-정리
 
 Priority Queue 정리
 https://velog.io/@cminmins/Priority-QueuePQ-정리
+
+https://velog.io/@cminmins/자바-Collections의-이해extends-implements
