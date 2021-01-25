@@ -2,20 +2,35 @@ import java.util.ArrayList;
 
 class Solution {
     public String solution(String m, String[] musicinfos) {
+        String answer = "(None)";
+        int answer_t = 0;
         
-        ArrayList<String> answer = new ArrayList<>();
-        ArrayList<Integer> answer_t = new ArrayList<>();
         // 노래 검색
         for(int i=0; i<musicinfos.length;i++){
             String[] info = musicinfos[i].split(",");
-            int time = (Integer.parseInt(info[1].substring(0,2)) - Integer.parseInt(info[0].substring(0,2))) * 60 + (Integer.parseInt(info[1].substring(3,5)) - Integer.parseInt(info[0].substring(3,5)));
+            
+            info[3] = info[3].replace("C#", "c");
+            info[3] = info[3].replace("D#", "d");
+            info[3] = info[3].replace("F#", "f");
+            info[3] = info[3].replace("G#", "g");
+            info[3] = info[3].replace("A#", "a");
+            
+            m = m.replace("C#", "c");
+            m = m.replace("D#", "d");
+            m = m.replace("F#", "f");
+            m = m.replace("G#", "g");
+            m = m.replace("A#", "a");
+            
+            int time = (Integer.parseInt(info[1].substring(0,2)) - Integer.parseInt(info[0].substring(0,2))) * 60;
+            
+            int end_m = Integer.parseInt(info[1].substring(3,5));
+            int start_m = Integer.parseInt(info[0].substring(3,5));
+            
+            time += end_m - start_m;
+            
             String title = info[2];
             String board = "";
-            
-            // for(String str : info)
-            //     System.out.println(str);   
-            
-            
+                        
             // 재생시간에 맞춰서 전체 곡 길이 수정
             if(info[3].length() < time){
                 for(int t=0; t< time / info[3].length(); t++)
@@ -24,29 +39,14 @@ class Solution {
             }
             else
                 board = info[3].substring(0, time);
-            // System.out.println(board);
             
-            if(!board.contains(m + "#") && board.contains(m)){
-                answer.add(title);
-                answer_t.add(time);
+            if(board.contains(m)){
+                if(time > answer_t){
+                    answer_t = time;
+                    answer = info[2];
+                }
             }
-            
         }
-        
-        if(answer.size() == 0)
-            return "(None)";
-        else{
-            int play_time = 0;
-            int k = 0;
-            // for(String str : answer)
-            //     System.out.println(str);   
-            for(int i=0; i< answer.size(); i++){
-                if(play_time < answer_t.get(i)){
-                    play_time = answer_t.get(i);   
-                    k = i;
-                }         
-            }
-            return answer.get(k);
-        }
+        return answer;
     }
 }
