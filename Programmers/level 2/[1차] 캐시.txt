@@ -1,47 +1,32 @@
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-import java.util.Collections;
-import java.util.Comparator;
 
 class Solution {
     public int solution(int cacheSize, String[] cities) {
         int answer = 0;
-        // ArrayList<String> a = new ArrayList<>();
-        Map<String, Integer> a = new HashMap<>();  
+        ArrayList<String> a = new ArrayList<>();
         
         if(cacheSize == 0)
             return cities.length * 5;
         
-        for(int i=0;i<cities.length;i++){
-            cities[i] = cities[i].toUpperCase();
-        }
-            
         for(int i=0; i<cities.length; i++){
-            if(a.size() < cacheSize){
-                a.put(cities[i], 0);
-                answer += 5;
+            String temp = cities[i].toUpperCase();
+            if(a.contains(temp)){
+                a.add(temp);
+                a.remove(temp);
+                answer++;
             }
             else{
-                if(a.containsKey(cities[i])){
-                    a.put(cities[i], a.get(cities[i])+1);
-                    System.out.println(cities[i] + ", " + a.get(cities[i]));
-                    answer++;
+                if(a.size() < cacheSize){
+                    a.add(temp);
+                    answer += 5;
                 }
                 else{
-                    ArrayList<String> str = new ArrayList<>(a.keySet());
-                    str.sort((s1, s2)->(a.get(s2)).compareTo(a.get(s1)));                    
-                    System.out.println(str.toString());
-                    System.out.println("remove : " + str.get(0));
-                    a.remove(a.remove(str.get(0)));
-                    a.put(cities[i], 0);
+                    a.remove(0);
+                    a.add(temp);
                     answer += 5;
                 }
             }
-        }        
-        
+        }
         return answer;
     }
 }
