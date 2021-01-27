@@ -1,0 +1,47 @@
+// import java.lang.StringBuilder;
+import java.util.HashMap;
+
+class Solution {
+    public String[] solution(String[] record) {
+        HashMap<String, String> m = new HashMap<>();
+        // StringBuilder sb = new StringBuilder();
+        
+        int command = 0;
+        for(int i=0; i<record.length; i++){
+            String[] temp = record[i].split(" ");
+            switch (temp[0]){
+                case "Enter":
+                    m.put(temp[1], temp[2]);
+                    command++;
+                    break;
+                case "Leave" :
+                    command++;
+                    break;
+                case "Change" :
+                    m.put(temp[1], temp[2]);
+                    break;     
+            }
+        }
+        String str = "";
+        String[] answer = new String[command];
+        int cnt = 0;
+        for(int i=0; i<record.length; i++){
+            String[] temp = record[i].split(" ");
+            switch (temp[0]){
+                case "Enter":
+                    answer[cnt++] = m.get(temp[1]) + "님이 들어왔습니다.";
+                    // sb.append(m.get(temp[1]));
+                    // sb.append("님이 들어왔습니다.,");
+                    break;
+                case "Leave" :
+                    answer[cnt++] = m.get(temp[1]) + "님이 나갔습니다.";
+                    // sb.append(m.get(temp[1]));
+                    // sb.append("님이 나갔습니다.,");
+                    break;
+            }
+        }
+        
+        // String[] answer = sb.toString().split(",");
+        return answer;
+    }
+}

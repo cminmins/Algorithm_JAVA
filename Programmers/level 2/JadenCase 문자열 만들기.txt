@@ -1,0 +1,19 @@
+class Solution {
+    public String solution(String s) {
+        String answer = "";
+                    
+        String[] temp = s.split(" ");
+        for(int i=0; i<temp.length; i++){
+            if(temp[i].length() > 1){
+                answer += temp[i].substring(0,1).toUpperCase() + 
+        temp[i].substring(1, temp[i].length()).toLowerCase() + " ";   
+            }
+            else
+                answer += temp[i].toUpperCase() + " ";
+        }
+        answer = answer.substring(0, answer.length() - 1);
+        if(s.charAt(s.length() - 1) == ' ')
+            answer += " ";
+        return answer;
+    }
+}

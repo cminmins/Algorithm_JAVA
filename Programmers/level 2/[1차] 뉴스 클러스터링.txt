@@ -1,0 +1,64 @@
+import java.util.ArrayList;
+
+class Solution {
+    public int solution(String str1, String str2) {
+        int answer = 0;
+        ArrayList<String> a1 = new ArrayList<>();
+        ArrayList<String> a2 = new ArrayList<>();
+        str1 = str1.toUpperCase();
+        str2 = str2.toUpperCase();
+        
+        // 부분집합 구하기
+        for(int i=0; i<str1.length() - 1; i++){
+            String temp = str1.substring(i, i+2);
+            if(temp.charAt(0) >= 'A' && temp.charAt(0) <= 'Z' &&
+              temp.charAt(1) >= 'A' && temp.charAt(1) <= 'Z')
+                a1.add(temp);
+        }
+        for(int i=0; i<str2.length() - 1; i++){
+            String temp = str2.substring(i, i+2);
+            if(temp.charAt(0) >= 'A' && temp.charAt(0) <= 'Z' &&
+              temp.charAt(1) >= 'A' && temp.charAt(1) <= 'Z')
+                a2.add(temp);
+        }
+        
+        //교집합, 합집합 구하기
+        ArrayList<String> union = new ArrayList<>();
+        ArrayList<String> inter = new ArrayList<>(a1);
+        // inter.retainAll(a2);
+        // union.removeAll(inter);
+        // union.addAll(a2); 
+        
+        
+        // ArrayList<String> union = new ArrayList<>();
+        // ArrayList<String> inter = new ArrayList<>();
+        for(int i=0; i<a2.size(); i++){
+            // if(a1.remove(a2.get(i)))
+            //     inter.add(a2.get(i));
+            union.add(a2.get(i));
+        }      
+        System.out.println("Union : " +union.toString());
+        
+        inter.retainAll(a2);
+        System.out.println("Inter : "+ inter.toString());
+        
+        System.out.println(a1.toString());
+        a1.removeAll(inter);
+        System.out.println("a1 : " + a1.toString());
+        
+        
+        ArrayList<String> temp = new ArrayList<>({"A", "A", "A", "A"}.asList());
+        ArrayList<String> temp2 = new ArrayList<>({"A", "A"}.asList());
+        System.out.println("temp - temp2 : " + temp.retainAll(temp2));
+        
+        
+        for(int i=0; i<a1.size(); i++){
+            union.add(a1.get(i));
+        }
+        System.out.println(union.toString());
+        if(union.size() == 0)
+            return 65536;
+        answer = (inter.size() * 65536) / union.size();
+        return answer;
+    }
+}
