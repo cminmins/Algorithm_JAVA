@@ -1,0 +1,72 @@
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Collections;
+
+class Solution {
+    
+    public class filename{
+        String head;
+        String number;
+        String tail;
+        
+        public filename(String head, String number, String tail){
+            this.head = head;
+            this.number = number;
+            this.tail = tail;
+        }
+    }
+    
+    public String[] solution(String[] files) {
+        String[] answer = new String[files.length];
+        ArrayList<filename> f = new ArrayList<>();
+        for(String str : files){
+            String t1 = "";
+            String t2 = "";
+            String t3 = "";
+            int index = 0;
+            // HEAD
+            for(int i=0; i<str.length(); i++){
+                if(str.charAt(i) >= '0' && str.charAt(i) <= '9'){
+                    t1 += str.substring(index, i);
+                    index = i;
+                    break;
+                }
+            }
+            // NUMBER
+            for(int i=index; i<str.length(); i++){
+                if(str.charAt(i) < '0' || str.charAt(i) > '9'){
+                    t2 += str.substring(index, i);
+                    index = i;
+                    break;
+                }
+            }
+            // TAIL
+            t3 += str.substring(index, str.length());
+            f.add(new filename(t1, t2, t3));
+        }
+        Collections.sort(f, new Comparator<filename>(){
+            @Override
+            public int compare(filename f1, filename f2){
+                String temp1 = f1.head.toUpperCase();
+                String temp2 = f2.head.toUpperCase();
+                if(temp1.equals(temp2))
+                    return Integer.compare(Integer.parseInt(f1.number), Integer.parseInt(f2.number));
+                // else
+                //     return f1.head.compareTo(f2.head);
+                else
+                    return 0;
+            }
+        });
+                
+        // for(filename t : f){
+        //     System.out.println("head : " + t.head + 
+        //                        " ,number : " + t.number + 
+        //                         " ,tail : " + t.tail);
+        // }
+        // for(int i=0; i<answer.length; i++){
+        //     answer[i] = f.get(i).head + f.get(i).number + f.get(i).tail;
+        // }
+        
+        return answer;
+    }
+}
