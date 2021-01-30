@@ -51,9 +51,11 @@ class Solution {
             public int compare(filename f1, filename f2){
                 String temp1 = f1.head.toUpperCase();
                 String temp2 = f2.head.toUpperCase();
-                if(temp1.equals(temp2))
+                // if(temp1.equals(temp2))
+                if(f1.head.equalsIgnoreCase(f2.head))
                     return Integer.compare(Integer.parseInt(f1.number), Integer.parseInt(f2.number));
                 else
+                    // return temp1.compareTo(temp2);
                     return f1.head.compareToIgnoreCase(f2.head);
             }
         });
