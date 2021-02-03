@@ -1,36 +1,24 @@
-import java.util.Collections;
-import java.util.ArrayList;
-
-
 class Solution {
-    
-    ArrayList<Integer> a = new ArrayList<>();
-    public void makestr(int size, int i, String s, int cnt, int cnt2){
-        if(size==i){
-            a.add(Integer.parseInt(s, 2));
-            return;
-        }
-        for(int k=i; k<size; k++){
-            if(cnt < cnt2)
-                makestr(size, k + 1, s + "1", cnt+1, cnt2);
-            makestr(size, k + 1, s + "0", cnt, cnt2);            
-        }
-    }
-    
     public int solution(int n) {
-        int answer = 0;
+        int answer = n;
         int cnt = 0;
         String str = Integer.toString(n, 2);
         for(char c : str.toCharArray()){
             if(c == '1')
                 cnt++;
         }
-        
-        makestr(str.length(), 0, "", 0, cnt);
-        
-        System.out.println(str);
-        System.out.println(a.toString());
-        
+        int cnt2 = 0;
+        for(int i=n+1; i< 1000000; i++){
+            String temp = Integer.toString(i, 2);
+            for(char c : temp.toCharArray()){
+                if(c == '1')
+                    cnt2++;
+            }
+            if(cnt == cnt2)
+                return i;
+            else
+                cnt2 = 0;
+        }
         return answer;
     }
 }
