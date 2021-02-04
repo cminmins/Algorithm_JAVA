@@ -1,0 +1,39 @@
+import java.util.StringTokenizer;
+
+class Solution {
+    public int[] solution(String[] info, String[] query) {
+        int[] answer = new int[query.length];
+        
+        for(int i=0; i<query.length; i++){
+            for(int j=0; j<info.length; j++){
+                StringTokenizer query_stk = new StringTokenizer(query[i]," ");
+                StringTokenizer info_stk = new StringTokenizer(info[j]," ");
+//                 while(query_stk.hasMoreTokens()){
+//                     String temp = query_stk.nextToken();
+//                     String temp2 = "";
+//                     //query에서 and이면 다음 키워드 검색
+//                     if(temp.equals("and")){
+//                         continue;
+//                     }
+//                     else
+//                         temp2 = info_stk.nextToken();
+                    
+//                     // System.out.println(temp2 + " // " + temp);
+//                     if(info_stk.countTokens() > 0){
+//                         if(temp.equals("-")){
+//                             // System.out.println("info : " + temp2 + " query : " + temp);
+//                             continue;
+//                         }
+//                         if(!temp.equals(temp2))
+//                             break;
+//                     }
+//                     else{
+//                         if(Integer.parseInt(temp2) >= Integer.parseInt(temp))
+//                             answer[i]++;
+//                     }
+//                 }
+            }
+        }
+        return answer;
+    }
+}
