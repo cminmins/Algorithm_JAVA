@@ -1,0 +1,25 @@
+class Solution {
+    public String solution(int n, int t, int m, int p) {
+        String answer = "";
+        int index = -1;
+        int cnt = 0;
+        int num = 0;
+        while(cnt < t)
+        {
+            String str = Integer.toString(num++, n);
+            str = str.toUpperCase();
+            index++;
+            for(int j=0; j<str.length(); j++){
+                if(j > 0)
+                    index++;
+                // System.out.println("char : " + str.charAt(j) + " index : " + index);
+                if((index % m) == (p - 1)){
+                    answer += str.charAt(j);
+                    if(++cnt >= t)
+                        break;
+                }
+            }
+        }
+        return answer;
+    }
+}
