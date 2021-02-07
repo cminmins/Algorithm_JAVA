@@ -1,35 +1,28 @@
-// 배울점
-// CompareTo 사용, Comparator Override, parseint, tostring
-
-
-import java.util.ArrayList;
 import java.util.Collections;
-import java.lang.StringBuilder;
+import java.util.Arrays;
+import java.lang.Comparable;
 import java.util.Comparator;
 
 class Solution {
     public String solution(int[] numbers) {
-        ArrayList<String> s = new ArrayList<>();
+        String answer = "";
+        String[] str = new String[numbers.length];
+        for(int i=0; i<numbers.length; i++){
+            str[i] = Integer.toString(numbers[i]);            
+        }
         
-        for(int i : numbers)
-            s.add(String.valueOf(i));
-        
-        Collections.sort(s, new Comparator<String>() {
-            @Override 
-                public int compare(String a, String b){
-                    // return (Integer.parseInt(a + b) > Integer.parseInt(b + a)) ? -1 : (Integer.parseInt(a + b) == Integer.parseInt(b + a) ? 0 : 1);
-                    return -(a+b).compareTo(b+a);
-                }
-            });
-        
-        StringBuilder str = new StringBuilder();
-        for(String i : s)
-            str.append(i);
-        
-        
-        String answer = str.toString();
+        Arrays.sort(str, new Comparator<String>(){
+            @Override
+            public int compare(String s1, String s2){
+                return (s1+s2).compareTo(s2+s1);
+            }
+        });
+        for(int i=str.length-1; i>=0; i--){
+            answer += str[i];
+        }
         if(answer.charAt(0) == '0')
             return "0";
-        return answer;
+        else
+            return answer;
     }
 }
