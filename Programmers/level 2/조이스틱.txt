@@ -1,0 +1,54 @@
+class Solution {
+    public int solution(String name) {
+        int answer = 0;
+        
+        for(int i=0; i<name.length(); i++){
+            int temp = name.charAt(i) - 'A';
+            if(temp > 13)
+                answer += 26 - temp;
+            else
+                answer += temp;
+        }
+        int a1 = 0;
+        for(int i=1; i<name.length(); i++){
+            if(name.charAt(i) == 'A'){
+                a1++;
+            }
+            else
+                break;
+        }
+        
+        int a2 = 0;
+        for(int i=name.length() - 1; i>0; i--){
+            if(name.charAt(i) == 'A'){
+                a2++;
+            }
+            else
+                break;
+        }
+        
+        int a3 = 0;
+        for(int i=1; i<name.length(); i++){
+            if(name.charAt(i) != 'A')
+                continue;
+            for(int j=i; j<name.length(); j++){
+                if(name.charAt(j) == 'A')
+                    a3++;
+                else{
+                    a3 = name.length() - a3 + (i-1) - 1;
+                    break;
+                }
+            }
+            break;
+        }
+            
+            
+        // 안움직일 거리 계산
+        int stick = name.length() - Math.max(a1,a2) - 1;
+        if(a3 > 0)
+            stick = Math.min(stick, a3);
+        // System.out.println("A1 : " + a1 +", A2 : " + a2 + ", A3 : " + a3);
+        answer = answer + stick;
+        return answer;
+    }
+}
