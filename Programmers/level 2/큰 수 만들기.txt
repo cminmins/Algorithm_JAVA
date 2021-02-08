@@ -1,0 +1,26 @@
+import java.lang.StringBuilder;
+
+class Solution {
+    public String solution(String number, int k) {
+        StringBuilder str = new StringBuilder(number);
+        int cnt = 0;
+        int index = 0;
+        int len = 0;
+        for(int r=0; r<k; r++){    
+            len = str.length();
+            index = len - 1;
+            for(int i=0; i< len - 1; i++){
+                if(str.charAt(i) < str.charAt(i+1)){
+                    cnt++;
+                    index = i;
+                    break;
+                }
+            }
+            str.deleteCharAt(index);
+        }
+    
+        return str.toString();
+    }
+}
+
+// for에서 조건문 확인하느라 .size()를 계속 호출하니까 시간오바 걸린듯
