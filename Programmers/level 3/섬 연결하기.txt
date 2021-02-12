@@ -1,0 +1,37 @@
+class Solution {
+    int[][] map;
+    boolean[] m;
+    int min_v = 99999999;
+    public void dfs(int from, int cnt, int n, int value){
+        if(cnt == n-1){
+            min_v = Math.min(min_v, value);
+            System.out.println(value);
+            return;
+        }
+        
+        for(int i=0; i<n; i++){
+            // 방문하지않았고, 연결되어있을때
+            if(map[from][i] > 0){
+                System.out.println("방문합니다 : " + from + ", " + i);
+                dfs(i, cnt+1, n, value+map[from][i]);
+            }
+        }
+        return;
+    }
+    
+    public int solution(int n, int[][] costs) {
+        int answer = 0;
+        map = new int[n][n];
+        m = new boolean[n];
+        // y,x에 맞게 cost 정리
+        for(int i=0;i<costs.length;i++){
+            map[costs[i][0]][costs[i][1]] = costs[i][2];
+            map[costs[i][1]][costs[i][0]] = costs[i][2];
+        }
+        for(int i=0;i<n;i++){
+            dfs(i, 0, n, 0);
+        }
+        
+        return min_v;
+    }
+}
