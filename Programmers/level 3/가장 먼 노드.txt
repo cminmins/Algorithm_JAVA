@@ -1,0 +1,36 @@
+import java.util.Arrays;
+class Solution {
+    public int solution(int n, int[][] edge) {
+        int answer = 0;
+        // for(int i=0;i<edge.length;i++){
+        //     int temp = 0;
+        //     if(edge[i][0] > edge[i][1]){
+        //         temp = edge[i][0];
+        //         edge[i][0] = edge[i][1];
+        //         edge[i][1] = temp;
+        //     }
+        // }
+        Arrays.sort(edge, (a,b)->{return a[0] - b[0];});
+        for(int i=0; i<edge.length; i++){
+            System.out.println(edge[i][0] + ", " + edge[i][1]);
+        }
+        int[] map = new int[n];
+        for(int i=0; i<edge.length; i++){
+            if(map[edge[i][1]-1] == 0)
+                map[edge[i][1]-1] = map[edge[i][0]-1] + 1;
+        }
+        int mv = 0;
+        for(int i=0; i<n; i++){
+            mv = Math.max(mv, map[i]);
+        }
+        
+        for(int i=0; i<n; i++){
+            if(map[i] == mv)
+                answer++;
+            System.out.println(map[i]);
+        }
+        
+        
+        return answer;
+    }
+}

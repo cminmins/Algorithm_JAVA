@@ -1,0 +1,49 @@
+class Solution {
+    
+    class inf{
+        String lang;
+        String end;
+        String year;
+        String food;
+        int score;
+        
+        public inf(String s1, String s2, String s3, String s4, int i1){
+            this.lang = s1;
+            this.end = s2;
+            this.year = s3;
+            this.food = s4;
+            this.score = i1;
+        }
+    }
+    
+    public int[] solution(String[] info, String[] query) {
+        int[] answer = new int[query.length];
+        inf[] t = new inf[info.length];
+        inf[] t2 = new inf[query.length];
+        for(int i=0; i<info.length; i++){
+            String[] temp = info[i].split(" ");
+            t[i] = new inf(temp[0], temp[1], temp[2], temp[3], Integer.parseInt(temp[4]));            
+        }
+        for(int i=0; i<query.length; i++){
+            String[] temp = query[i].replace(" and ", " ").split(" ");
+            t2[i] = new inf(temp[0], temp[1], temp[2], temp[3], Integer.parseInt(temp[4]));            
+        }
+        
+        int q_len = query.length;
+        int i_len = info.length;
+        for(int i=0; i<q_len; i++){
+            for(int k=0;k<i_len; k++){
+                // String[] temp2 = info[k].split(" ");
+                if(t2[i].lang.equals("-") || t2[i].lang.equals(t[k].lang))
+                    if(t2[i].end.equals("-") ||t2[i].end.equals(t[k].end))
+                        if(t2[i].year.equals("-") || t2[i].year.equals(t[k].year))
+                            if(t2[i].food.equals("-") || t2[i].food.equals(t[k].food))
+                                if(t2[i].score <= t[k].score)
+                                    answer[i]++;
+            }
+        }
+        
+        
+        return answer;
+    }
+}
