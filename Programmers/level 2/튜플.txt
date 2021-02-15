@@ -1,42 +1,60 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
+// import java.util.ArrayList;
+// import java.util.Arrays;
+// import java.util.Comparator;
 
+// class Solution {
+//     public int[] solution(String s) {
+//         ArrayList<Integer> answer2 = new ArrayList<>();
+//         boolean[] an = new boolean[100001];
+// //         // 가장 바깥 {} 제거
+// //         s = s.substring(1, s.length()-1);
+        
+// //         // 분리된 원소들의 }, 제거하기
+// //         String[] str = s.split("},");
+// //         // 마지막 원소의 } 제거
+// //         str[str.length - 1] = str[str.length - 1].substring(0, str[str.length - 1].length()-1);
+// //         // 모든 원소들의 { 제거
+// //         for(int i=0; i<str.length;i++)
+// //             str[i] = str[i].substring(1);
+        
+//          = s.replaceAll("[{}]", " ");
+//         // 길이에 맞춰서 comapre
+//         Arrays.sort(str, new Comparator<String>(){
+//             @Override
+//             public int compare(String s1, String s2){
+//                 return (s1.length() < s2.length()) ? -1 : 1;
+//             }            
+//         });
+//         // 분리된 원소들을 각 숫자로 또 분리해서 정리
+//         for(int i=0; i<str.length; i++){
+//             String[] temp = str[i].split(",");
+//             for(int k=0; k<temp.length; k++){
+//                 if(an[Integer.parseInt(temp[k])] == false){
+//                     an[Integer.parseInt(temp[k])] = true;
+//                     answer2.add(Integer.parseInt(temp[k]));
+//                 }
+//             }
+//         }
+//         int[] answer = new int[answer2.size()];
+//         for(int i=0;i<answer2.size();i++)
+//             answer[i] = answer2.get(i);
+//         return answer;
+//     }
+// }
+
+import java.util.*;
 class Solution {
     public int[] solution(String s) {
-        ArrayListInteger answer2 = new ArrayList();
-        boolean[] an = new boolean[100001];
-         가장 바깥 {} 제거
-        s = s.substring(1, s.length()-1);
-        
-         분리된 원소들의 }, 제거하기
-        String[] str = s.split(},);
-         마지막 원소의 } 제거
-        str[str.length - 1] = str[str.length - 1].substring(0, str[str.length - 1].length()-1);
-         모든 원소들의 { 제거
-        for(int i=0; istr.length;i++)
-            str[i] = str[i].substring(1);
-        
-         길이에 맞춰서 comapre
-        Arrays.sort(str, new ComparatorString(){
-            @Override
-            public int compare(String s1, String s2){
-                return (s1.length()  s2.length())  -1  1;
-            }            
-        });
-         분리된 원소들을 각 숫자로 또 분리해서 정리
-        for(int i=0; istr.length; i++){
-            String[] temp = str[i].split(,);
-            for(int k=0; ktemp.length; k++){
-                if(an[Integer.parseInt(temp[k])] == false){
-                    an[Integer.parseInt(temp[k])] = true;
-                    answer2.add(Integer.parseInt(temp[k]));
-                }
+        Set<String> set = new HashSet<>();
+        String[] arr = s.replaceAll("[{]", " ").replaceAll("[}]", " ").trim().split(" , ");
+        Arrays.sort(arr, (a, b)->{return a.length() - b.length();});
+        int[] answer = new int[arr.length];
+        int idx = 0;
+        for(String s1 : arr) {
+            for(String s2 : s1.split(",")) {
+                if(set.add(s2)) answer[idx++] = Integer.parseInt(s2);
             }
         }
-        int[] answer = new int[answer2.size()];
-        for(int i=0;ianswer2.size();i++)
-            answer[i] = answer2.get(i);
         return answer;
     }
 }

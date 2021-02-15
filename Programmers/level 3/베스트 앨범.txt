@@ -1,0 +1,35 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+
+class Solution {
+    
+    class song{
+        int index;
+        int playtime;
+        String genre;
+        
+        public song(int i, int p, String g){
+            this.index = i;
+            this.playtime = p;
+            this.genre = g;
+        }
+    }
+    
+    public int[] solution(String[] genres, int[] plays) {
+        int[] answer = {};
+        
+        HashMap<String, Integer> count = new HashMap<>();
+        ArrayList<song> s = new ArrayList<>();
+        for(int i=0; i<genres.length; i++){
+            count.put(genres[i], count.getOrDefault(count.getKey(genres[i], 0)) + plays[i]);
+            
+            s.add(new song(i, plays[i], genres[i]));
+        }
+        
+        
+        
+        
+        
+        return answer;
+    }
+}
