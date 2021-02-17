@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Collections;
+import java.util.Comparator;
 
 class Solution {
     
@@ -20,16 +22,63 @@ class Solution {
         
         HashMap<String, Integer> count = new HashMap<>();
         ArrayList<song> s = new ArrayList<>();
+        ArrayList<Integer> ans = new ArrayList<>();
         for(int i=0; i<genres.length; i++){
-            count.put(genres[i], count.getOrDefault(count.getKey(genres[i], 0)) + plays[i]);
+            count.put(genres[i], count.getOrDefault(genres[i], 0) + plays[i]);
             
             s.add(new song(i, plays[i], genres[i]));
         }
         
+        Collections.sort(s, new Comparator<song>(){
+            @Override
+            public int compare(song s1, song s2){
+                if(count.get(s1.genre) == count.get(s2.genre)){
+                    if(s1.playtime == s2.playtime)
+                        return s1.index - s2.index;
+                    else
+                        return s2.playtime - s1.playtime;
+                }  
+                else
+                    return count.get(s2.genre) - count.get(s1.genre);
+            };
+        });
         
+        // for(song so : s)
+        //     System.out.println(so.genre + ", " + so.playtime + ", " + so.index);
         
+        String temp = "";
+        int cnt = 0;
+        for(song so : s){
+            if(cnt == 2 && so.genre.equals(temp))
+                continue;
+            else{
+                if(!so.genre.equals(temp)){
+                    cnt = 0;
+                }
+                
+                if(cnt == 0 ){
+                    temp = so.genre;
+                    cnt++;
+                    ans.add(so.index);
+                }
+                else if(cnt == 1){
+                    if(so.genre.equals(temp)){
+                        cnt++;
+                        ans.add(so.index);
+                    }
+                    else{
+                        cnt++;
+                    }
+                }
+            }
+        }
         
+        answer = new int[ans.size()];
+        int index = 0;
+        for(Integer i : ans)
+            answer[index++] = i;
         
+        // System.out.println(ans.toString());
         return answer;
     }
 }
