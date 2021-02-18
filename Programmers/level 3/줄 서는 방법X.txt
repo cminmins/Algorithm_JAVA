@@ -1,0 +1,51 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.lang.StringBuilder;
+
+class Solution {
+    boolean[] arr;
+    long kc = 0;
+    int[] answer;
+    
+    public void dfs(StringBuilder str, int n, long k){
+        if(str.length() == n){
+            kc++;
+            // System.out.println("Check");
+            if(kc == k){
+                for(int i=0; i<n; i++)
+                    answer[i] = str.charAt(i) - 48;
+            }
+            return;
+        }
+        
+        // System.out.println(str);
+        for(int i=1; i<=n; i++){
+            if(arr[i])
+                continue;
+            else{
+                // System.out.println("Start");
+                arr[i] = true;
+                dfs(str.append(Integer.toString(i)), n, k);
+                str.deleteCharAt(str.length() - 1);
+                arr[i] = false;                
+            }
+        }
+    }
+    
+    public int[] solution(int n, long k) {
+        arr = new boolean[n+1];
+        Arrays.fill(arr, false);
+        answer = new int[n];
+        StringBuilder str = new StringBuilder();
+        
+        dfs(str, n, k);
+        
+        
+        // for(String s : ans)
+        //     System.out.println(s);
+        
+        // for(int i=0; i<n; i++)
+        //     answer[i] = Integer.parseInt(ans.get(k-1).charAt(i));
+        return answer;
+    }
+}
