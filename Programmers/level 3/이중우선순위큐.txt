@@ -1,0 +1,46 @@
+import java.util.PriorityQueue;
+import java.util.Collections;
+
+class Solution {
+    public int[] solution(String[] operations) {
+        //기본은 Minheap
+        PriorityQueue<Integer> h = new PriorityQueue<>();
+        PriorityQueue<Integer> rh = new PriorityQueue<>(Collections.reverseOrder());
+        
+        for(int i=0; i<operations.length; i++){
+            String[] str = operations[i].split(" ");
+            Integer temp = Integer.parseInt(str[1]);
+            if(str[0].equals("I")){
+                // System.out.println("ADD : " + temp);
+                h.add(temp);
+            }
+            else if(str[0].equals("D")){
+                // Maxheap으로 변경 후, 최대값 제거
+                if(temp > 0){
+                    rh.addAll(h);
+                    // System.out.println("MAX : " + rh.peek());
+                    rh.poll();
+                    h.clear();
+                    h.addAll(rh);
+                }
+                // 최소값 제거
+                else if(temp <= 0){
+                    // System.out.println("MIN : " + h.peek());
+                    h.poll();
+                }
+            }
+        }
+        
+        // System.out.println(h.toString());
+        
+        int[] answer = new int[2];
+        if(h.isEmpty())
+            return new int[]{0, 0};
+        else{
+            answer[1] = h.peek();
+            rh.addAll(h);
+            answer[0] = rh.peek();
+            return answer;
+        }
+    }
+}
