@@ -20,23 +20,23 @@ public class Main_20438 {
         String[] sleep = br.readLine().split(" ");
         String[] awake = br.readLine().split(" ");
 
+        int sleepcnt = 0;
+        int awakecnt = 0;
+
         int[] arr = new int[n+3];
         for (int i = 0; i < q; i++) {
-            arr[Integer.parseInt(awake[i])]++;
-        }
-        for (int i = 0; i < k; i++) {
-            arr[Integer.parseInt(sleep[i])]--;
-        }
-        for (int i = 3; i <= n + 2; i++) {
-            if(arr[i] == 1){
-                for (int t = i + i; t <= n + 2; t += i) {
-                    arr[t]++;
-                }
+            int temp = Integer.parseInt(awake[i]);
+            for(int idx=temp; idx<=n+2; idx+=temp){
+                arr[idx]++;
             }
         }
 
         for (int i = 0; i < k; i++) {
-            arr[Integer.parseInt(sleep[i])] = 0;
+            int temp = Integer.parseInt(sleep[i]);
+            arr[temp] = 0;
+//            for(int idx=temp; idx<n+2; idx+=idx){
+//               arr[idx] = 0;
+//            }
         }
 
         for (int t = 0; t < m; t++) {
