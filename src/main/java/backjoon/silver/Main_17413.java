@@ -11,20 +11,29 @@ public class Main_17413 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
         StringBuilder req = new StringBuilder(br.readLine());
-
+        StringBuilder temp = new StringBuilder();
 
         for (int i = 0; i < req.length(); i++) {
             if (req.charAt(i) == '<') {
-                // Tag count
+                // Close tag가 올때
+                if(temp.length() > 0){
+                    sb.append(temp.reverse());
+                    temp = new StringBuilder();
+                }
+                // Open tag가 올때
                 sb.append(req, i, req.indexOf(">", i) + 1);
                 i = req.indexOf(">", i);
-
-                // Make word
-                if(req.indexOf(" ", i) > 0);
-
+            } else if (req.charAt(i) == ' ') {
+                sb.append(temp.reverse());
+                sb.append(' ');
+                temp = new StringBuilder();
+            }
+            // 단어
+            else{
+                temp.append(req.charAt(i));
             }
         }
-
+        sb.append(temp.reverse());
         System.out.println(sb.toString());
         return;
     }
