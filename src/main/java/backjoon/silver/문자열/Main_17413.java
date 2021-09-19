@@ -1,4 +1,4 @@
-package backjoon.silver;
+package backjoon.silver.문자열;
 
 import java.io.BufferedReader;
 import java.io.IOException;
