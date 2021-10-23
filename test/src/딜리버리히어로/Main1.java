@@ -25,7 +25,6 @@ public class Main1 {
             String Last = names[names.length- 1].replace("-", "");
 
             StringBuilder sb = new StringBuilder();
-
             // Email name format
             sb.append(Last);
             sb.append("_");
@@ -40,7 +39,6 @@ public class Main1 {
                 sb.append(map.get(temp));
                 map.put(temp, map.get(temp) + 1);
             }
-
             // Email company format
             sb.append("@");
             sb.append(C);
