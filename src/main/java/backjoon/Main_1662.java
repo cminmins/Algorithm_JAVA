@@ -9,50 +9,31 @@ public class Main_1662 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String str = br.readLine();
-//        Stack<Character> compress = new Stack<>();
-//        int cnt = 0;
-//        for (int i = 0; i < str.length(); i++) {
-//            char c = str.charAt(i);
-//            if (c == ')') {
-//                int temp = 0;
-//                while (compress.peek() != '(') {
-//                    if (compress.pop() == 'a') {
-//                        temp += cnt;
-//                    } else {
-//                        temp++;
-//                    }
-//                }
-//                compress.pop();
-//                int d = Integer.parseInt(String.valueOf(compress.pop()));
-//                temp *= d;
-//                cnt += temp;
-//                if (cnt > 0) {
-//                    compress.push('a');
-//                }
-//            } else {
-//                compress.push(c);
-//            }
-//        }
-//        if (!compress.isEmpty() && compress.peek() == 'a') {
-//            cnt = cnt + compress.size() - 1;
-//        } else {
-//            cnt += compress.size();
-//        }
-
-        int index=0;
-        String[] list = new String[str.length() + 1];
+        Stack<Integer> compress = new Stack<>();
         for (int i = 0; i < str.length(); i++) {
-            String c = String.valueOf(str.charAt(i));
-            if (c.equals(')')) {
-                0
+            char c = str.charAt(i);
+            // '(' == -1
+            if (c == ')') {
+                int temp = 0;
+                while (compress.peek() != -1) {
+                    temp += compress.pop();
+                }
+                compress.pop();
+                temp *= compress.pop();
+                compress.push(temp);
+            } else if (c == '(') {
+                compress.pop();
+                compress.push(Integer.parseInt(String.valueOf(str.charAt(i - 1))));
+                compress.push(-1);
+            } else {
+                compress.push(1);
             }
-
-            list[index++] = c;
-
-
         }
 
-
+        int cnt =0;
+        while (!compress.empty()) {
+            cnt += compress.pop();
+        }
         System.out.println(cnt);
     }
 }
