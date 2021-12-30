@@ -20,7 +20,7 @@ public class Main_12865 {
                 bag[w] = v;
             }
             for (int idx = w; idx < 100001; idx++) {
-                if (bag[idx - w] > 0) {
+                if (bag[idx] > 0) {
                     bag[idx] = Math.max(bag[idx], bag[idx - w] + v);
                 }
             }
