@@ -6,6 +6,53 @@ public class Main2 {
         String answer = "";
         return answer;
     }
+
+    static int[] arr = {0, 0, 0, 0};
+
+    public static void dfs(int t, int cnt) {
+        if (t == 4) {
+            for (int k = 0; k < 4; k++) {
+                System.out.print(arr[k] + " ");
+            }
+            System.out.println();
+            return;
+        }
+
+        for (int i = t; i < 4; i++) {
+            arr[i] = 1;
+            dfs(i + 1, cnt + 1);
+            arr[i] = 0;
+        }
+        return;
+    }
+
+    public static void dfs2(int t, int cnt) {
+        if (t == 4) {
+            for (int k = 0; k < 4; k++) {
+                System.out.print(arr[k] + " ");
+            }
+            System.out.println();
+            return;
+        }
+
+        if (t == 4) {
+            return;
+        }
+
+
+        dfs2(t+1, cnt);
+        arr[t] = 1;
+        dfs2(t+1, cnt + 1);
+        arr[t] = 0;
+        return;
+    }
+
+    public static void main(String[] args) {
+        dfs(0, 0);
+        System.out.println("------------------------");
+        dfs2(0, 0);
+        return;
+    }
 }
 
 

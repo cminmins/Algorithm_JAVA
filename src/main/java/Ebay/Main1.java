@@ -3,29 +3,93 @@ package Ebay;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 public class Main1 {
 
-    int ans = Integer.MIN_VALUE;
+    static int[][] times = new int[5][49];
+    static Map<String, Integer> days = new HashMap<>();
+    static int ans = 0;
 
-    public void search(int y, int x, String[] grid) {
 
+    // 시간만 넘어올거임
+    public static int conv(String str) {
+//        int temp = Integer.parseInt(str.substring(0, 2)) * 2 + Integer.parseInt(str.substring(3, 5));
+        return Integer.parseInt(str.substring(0, 2)) * 2 + Integer.parseInt(str.substring(3, 5)) / 30;
+    }
+
+    public static void search(int d, String[][] grid) {
+        if (d >= grid.length) {
+            ans++;
+            return;
+        }
+
+        for (int i = 0; i < 4; i++) {
+            String[] time = grid[d][i].split(" ");
+            boolean check = true;
+            // 3시간짜리 수업
+            if (time.length == 2) {
+                // 확인
+                for (int k = 0; k < 6; k++) {
+                    if (times[days.get(time[0])][conv(time[1]) + k] > 0) {
+                        check = false;
+                    }
+                }
+                if (!check) {
+                    continue;
+                }
+                // 세팅
+                for (int k = 0; k < 6; k++) {
+                    times[days.get(time[0])][conv(time[1]) + k]++;
+                }
+                search(d+1, grid);
+                for (int k = 0; k < 6; k++) {
+                    times[days.get(time[0])][conv(time[1]) + k]--;
+                }
+                // 1시간반 짜리 2개
+            } else if (time.length == 4) {
+                // 확인
+                for (int k = 0; k < 3; k++) {
+                    if (times[days.get(time[0])][conv(time[1]) + k] > 0 || times[days.get(time[2])][conv(time[3]) + k] > 0) {
+                        return;
+                    }
+                }
+
+                // 세팅
+                for (int k = 0; k < 3; k++) {
+                    times[days.get(time[0])][conv(time[1]) + k]++;
+                    times[days.get(time[2])][conv(time[3]) + k]++;
+                }
+                search(d+1, grid);
+                for (int k = 0; k < 3; k++) {
+                    times[days.get(time[0])][conv(time[1]) + k]--;
+                    times[days.get(time[2])][conv(time[3]) + k]--;
+                }
+            }
+        }
     }
 
 
-    public int solution(String[] grid) {
-        int answer = 0;
-        return answer;
+    public static int solution(String[][] grid) {
+        search(0, grid);
+        return ans;
     }
 
 
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-
-
-
+        days.put("MO", 0);
+        days.put("TU", 1);
+        days.put("WE", 2);
+        days.put("TH", 3);
+        days.put("FR", 4);
+        String[][] grid = {{"MO 12:00 WE 14:30", "MO 12:00", "MO 15:00", "MO 18:00"},
+                {"TU 09:00", "TU 10:00", "TU 15:00", "TU 18:00"},
+                {"WE 09:00", "WE 12:00", "WE 15:00", "WE 18:00"},
+                {"TH 09:30", "TH 11:30", "TH 15:00", "TH 18:00"},
+                {"FR 15:00", "FR 15:00", "FR 15:00", "FR 15:00"}};
+        System.out.println(solution(grid));
         return;
     }
 }
@@ -84,3 +148,43 @@ public class Main1 {
 //        첫 번째 과목을 1번째 분반인 월요일과 수요일 1시간 30분씩 진행하는 수업으로 선택했을 경우, 만들 수 있는 올바른 시간표의 개수는 1 x 4 x 2 x 4 x 4 = 128개입니다.
 //        첫 번째 과목의 수업이 월요일 12시부터 13시 30분까지, 수요일 2시 30분부터 4시까지 진행된다면 3번째 과목의 "WE 12:00"와 "WE 15:00"는 첫 번째 과목과 수업 시간이 겹치므로 선택할 수 없습니다.
 //        따라서 만들 수 있는 올바른 시간표의 개수는 896(768 + 128)개입니다.
+
+//1.
+//        n, m = 5, 4
+//        ans = 0
+//        selected = []
+//        day_map = {'MO': 0, 'TU': 1, 'WE': 2, 'TH': 3, 'FR': 4}
+//        def conv(tz):
+//          return day_map[tz[:2]] * 60 * 24 + int(tz[3:5]) * 60 + int(tz[6:8])
+//        def parse(tz):
+//          if len(tz) == 8:
+//              v = conv(tz)
+//              return [(v, v + 90), (v + 90, v + 180)]
+//          else:
+//              v1 = conv(tz[:8])
+//              v2 = conv(tz[9:])
+//              return [(v1, v1 + 90), (v2, v2 + 90)]
+//        def conflict(A, B):  # A, B는 모두 시간 (요일 + 시간 + 분)
+//          A = parse(A)
+//          B = parse(B)
+//          for a in A:
+//              for b in B:
+//                  if max(a[0], b[0]) < min(a[1], b[1]):
+//                  return True
+//          return False
+//        def dfs(idx, schedule):
+//          if idx == len(schedule):
+//              return 1
+//          ret = 0
+//          for j in schedule[idx]:  # j 시간에 들을 것
+//              flag = True
+//              for k in selected:  # k 시간에 이미 다른 과목 들음
+//                  if conflict(j, k):  # 겹치면 실패
+//                      flag = False
+//              if flag:  # 안 겹치면 재귀호출
+//                  selected.append(j)
+//                  ret += dfs(idx + 1, schedule)
+//                  selected.pop()
+//                 return ret
+//        def solution(schedule):
+//              return dfs(0, schedule)
