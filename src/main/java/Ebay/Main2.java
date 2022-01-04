@@ -1,56 +1,97 @@
 package Ebay;
 
+import java.util.ArrayList;
+
 public class Main2 {
 
-    public String solution(int[] stones, int k) {
-        String answer = "";
-        return answer;
+    static ArrayList<String> ans = new ArrayList<>();
+    static StringBuilder sb = new StringBuilder();
+
+    static boolean checking(int[] stones, int k) {
+        boolean isOK = false;
+        int zeroCnt = 0;
+        for (int i = 0; i < stones.length; i++) {
+            if (stones[i] == 0) {
+                zeroCnt++;
+            } else if (stones[i] == k) {
+                isOK = true;
+            }
+        }
+        return isOK & zeroCnt == stones.length - 1;
     }
 
-    static int[] arr = {0, 0, 0, 0};
-
-    public static void dfs(int t, int cnt) {
-        if (t == 4) {
-            for (int k = 0; k < 4; k++) {
-                System.out.print(arr[k] + " ");
+    static boolean isValid(int[] stones, int k, int index) {
+        for (int i = 0; i < stones.length; i++) {
+            if (i == index) {
+                continue;
             }
-            System.out.println();
-            return;
+            if (stones[i] == 0) {
+                return false;
+            }
         }
+        return true;
+    }
 
-        for (int i = t; i < 4; i++) {
-            arr[i] = 1;
-            dfs(i + 1, cnt + 1);
-            arr[i] = 0;
+    static void calc(int[] stones, int k, int index, int op) {
+        for (int i = 0; i < stones.length; i++) {
+            if (i == index) {
+                stones[i] += op;
+            } else {
+                stones[i] -= op;
+            }
         }
         return;
     }
 
-    public static void dfs2(int t, int cnt) {
-        if (t == 4) {
-            for (int k = 0; k < 4; k++) {
-                System.out.print(arr[k] + " ");
+    public static void search(int[] stones, int k) {
+        if (ans.size() > 0) {
+            return;
+        }
+        if (checking(stones, k)) {
+            ans.add(sb.toString());
+            return;
+        }
+
+        for (int i = stones.length - 1; i >= 0; i--) {
+            if (isValid(stones, k, i)) {
+                calc(stones, k, i, 1);
+                sb.append(i);
+                search(stones, k);
+                calc(stones, k, i, -1);
+                sb.deleteCharAt(sb.length() - 1);
             }
-            System.out.println();
-            return;
         }
-
-        if (t == 4) {
-            return;
-        }
-
-
-        dfs2(t+1, cnt);
-        arr[t] = 1;
-        dfs2(t+1, cnt + 1);
-        arr[t] = 0;
         return;
+    }
+
+
+    public static String solution(int[] stones, int k) {
+        int sum =0;
+        for (int i = 0; i < stones.length; i++) {
+            sum += stones[i];
+        }
+        if ((stones.length > 2) && (sum - k) % (stones.length - 2) != 0) {
+            return "-1";
+        }
+        if (sum < k) {
+            return "-1";
+        }
+        search(stones, k);
+        if (ans.size() > 0) {
+            return ans.get(0);
+        } else {
+            return "-1";
+        }
     }
 
     public static void main(String[] args) {
-        dfs(0, 0);
-        System.out.println("------------------------");
-        dfs2(0, 0);
+//        int[] stones = {1, 3, 2};
+//        int k = 3;
+//        int[] stones = {4, 2, 2, 1, 4};
+//        int k = 1;
+        int[] stones = {5, 7, 2, 4, 9};
+        int k = 20;
+        System.out.println(solution(stones, k));
         return;
     }
 }
