@@ -1,9 +1,66 @@
 package Ebay;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Main4 {
-    public int solution(int n, int k, String bulbs) {
-        int answer = -2;
-        return answer;
+
+    static Map<Character, Integer> light = new HashMap<>();
+    static char[] RGB = {'R', 'G', 'B'};
+
+    public static void clickedButton(StringBuilder bulbs, int idx, int k, int op) {
+        for (int i = 0; i < k; i++) {
+            bulbs.setCharAt(idx+i, RGB[(3 + light.get(bulbs.charAt(idx+i)) + op) % 3]);
+        }
+        return;
+    }
+
+    public static boolean checkAllRed(StringBuilder bulbs, int n) {
+        for (int i = 0; i < n; i++) {
+            if (bulbs.charAt(i) != 'R') {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    static int answer = Integer.MAX_VALUE;
+    public static void dfs(StringBuilder bulbs, int s, int n, int k, int cnt) {
+        if (answer <= cnt) {
+            return;
+        }
+        if (checkAllRed(bulbs, n)) {
+            answer = Math.min(answer, cnt);
+            return;
+        }
+
+        for (int i = 0; i < n; i++) {
+            if (s != i) {
+                clickedButton(bulbs, i, k, 1);
+                dfs(bulbs, i, n, k, cnt+1);
+                clickedButton(bulbs, i, k, -1);
+            }
+        }
+        return;
+    }
+
+
+
+    public static int solution(int n, int k, String bulbs) {
+        light.put('R', 0);
+        light.put('G', 1);
+        light.put('B', 2);
+        dfs(new StringBuilder(bulbs), -1, n, k, 0);
+        if (answer == Integer.MAX_VALUE) {
+            return -1;
+        } else {
+            return answer;
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(solution(6, 3, "RBGRGB"));
+        return;
     }
 }
 
