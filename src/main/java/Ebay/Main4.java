@@ -116,3 +116,36 @@ public class Main4 {
 //        다음과 같이 6번 만에 모든 전구를 빨간 불빛으로 만들 수 있습니다.
 //
 //        GBBG → GRRG → GGGG → BBGG → BBBB → RRBB → RRRR
+
+//4.
+//        #include <string>
+//#include <vector>
+//#include <iostream>
+//using namespace std;
+//        char ch(char x, int cnt){
+//        string p = "RGB";
+//        int y = 0;
+//        if (x == 'R') y = 0;
+//        if (x == 'G') y = 1;
+//        if (x == 'B') y = 2;
+//        return p[(y + cnt) % 3];
+//        }
+//        int solution(int n, int k, string bulbs) {
+//        vector<int> cnt(n + 1, 0);
+//        int ans = 0;
+//        for (int i=0;i<n;i++){
+//        if (i > 0) cnt[i] += cnt[i-1];
+//        bulbs[i] = ch(bulbs[i], cnt[i]);
+//        if (bulbs[i] == 'R') continue;
+//        else{
+//        if (i >= n - k + 1) return -1;
+//        int click = 0;
+//        if (bulbs[i] == 'B') click = 1;
+//        else click = 2;
+//        cnt[i] += click;
+//        cnt[i + k] -= click;
+//        ans += click;
+//        }
+//        }
+//        return ans;
+//        }

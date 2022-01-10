@@ -82,3 +82,70 @@ public class Main5 {
 //        첫 번째 원소인 "21"과 네 번째 원소인 "11"을 뽑아 연결하면 "2111" 또는 "1121"이 되고, 이 숫자는 팰린드롬이 아닙니다. 즉, 첫 번째 원소와 네 번째 원소와 연결했을 때는 배열의 모든 원소를 제거할 수 없습니다.
 //
 //        최종적으로 두 번째 원소가 속한 ["123"] 을 return 합니다.
+
+//5.
+//        #include<iostream>
+//#include<vector>
+//#include<string>
+//using namespace std;
+//        int target, match[50];
+//        int a[50][50], n;
+//        int path[50], visit[50];
+//        int dfs(int x, int idx) {
+//        if (visit[x]) return 0;
+//        path[idx] = x;
+//        visit[x] = 1;
+//        if (match[x] == -1 && idx % 2 == 0) {
+//        for (int i = 1; i <= idx; i += 2) {
+//        match[path[i]] = path[i + 1];
+//        match[path[i + 1]] = path[i];
+//        }
+//        return 1;
+//        }
+//        else if (idx % 2 == 0) {
+//        return dfs(match[x], idx + 1);
+//        }
+//        else {
+//        int flag = 0;
+//        for (int j = 1; j < n; j++) {
+//        if (j == target) continue;
+//        //if (visit[j][(idx+1)%2]) continue;
+//        if (a[x][j] == 0) continue;
+//        if (dfs(j, idx + 1) == 1) return 1;
+//        }
+//        return 0;
+//        }
+//        }
+//        vector<string> solution(vector<string> P)
+//        {
+//        n = P.size();
+//        vector<string> answer;
+//        for (int i = 0; i < n; i++) {
+//        for (int j = 0; j < n; j++) {
+//        if (i == j) continue;
+//        string x = P[i] + P[j];
+//        int flag = 0;
+//        for (int k = 0; k < x.length(); k++) {
+//        if (x[k] != x[x.length() - 1 - k]) flag = 1;
+//        }
+//        if (flag == 0) a[i][j] = a[j][i] = 1;
+//        }
+//        }
+//        for (int i = 1; i < n; i++) {
+//        for (int j = 0; j < n; j++) match[j] = -1;
+//        if (a[0][i] == 0) continue;
+//        target = i;
+//        match[target] = 0;
+//        match[0] = target;
+//        int cnt = 0;
+//        for (int j = 1; j < n; j++) {
+//        if (match[j] != -1) continue;
+//        for (int k = 0; k < n; k++) visit[k] = 0;
+//        cnt += dfs(j, 1);
+//        }
+//        if (cnt * 2 == n - 2){
+//        answer.push_back(P[i]);
+//        }
+//        }
+//        return answer;
+//        }

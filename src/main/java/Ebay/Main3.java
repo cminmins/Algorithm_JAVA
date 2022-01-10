@@ -51,3 +51,121 @@ public class Main3 {
 //
 //        격자의 색깔 분포와 가장 많은 칸을 거치는 경로는 다음 그림과 같습니다.
 //        example3.png
+
+//3-python.
+//        def shift(grid):
+//        n = len(grid)
+//        res = []
+//        for idx, row in enumerate(grid):
+//        res.append([None for _ in range(n * 2 - 1)])
+//        for i in range(n - idx - 1, n + idx):
+//        res[idx][i] = row[i - (n - idx - 1)]
+//        return res
+//        def solution(grid):
+//        def inRange(r, c):
+//        nonlocal grid
+//        n = len(grid)
+//        if r < 0 or r >= n: return False
+//        if c < n - r - 1 or c >= n + r: return False
+//        return True
+//        def traverse(r, c, port):
+//        nonlocal con, conv, grid
+//        res = 0
+//        while inRange(r, c):
+//        res += 1
+//        port = conv[grid[r][c]][port]
+//        r, c, port = con[r][c][port]
+//        return res
+//        # inside rule
+//        conv = dict()
+//        conv['R'] = [0 for _ in range(6)]
+//        conv['B'] = [0 for _ in range(6)]
+//        conv['R'][0], conv['R'][2], conv['R'][4] = 5, 1, 3
+//        conv['B'][0], conv['B'][2], conv['B'][4] = 3, 5, 1
+//        # connection
+//        n = len(grid)
+//        con = [[[(-1, -1, -1) for _ in range(6)] for _ in range(n * 2 - 1)] for _ in range(n)]
+//        grid = shift(grid)
+//        for r in range(n):
+//        for c in range(n - r - 1, n + r):
+//        if (r + c) % 2 == (n - 1) % 2:  # right triangle
+//        con[r][c][1] = (r, c + 1, 4)
+//        con[r][c][3] = (r + 1, c, 0)
+//        con[r][c][5] = (r, c - 1, 2)
+//        else:  # inverse triangle
+//        con[r][c][1] = (r - 1, c, 2)
+//        con[r][c][3] = (r, c + 1, 4)
+//        con[r][c][5] = (r, c - 1, 0)
+//        answer = 0
+//        for r in range(n):
+//        # left side
+//        answer = max(answer, traverse(r, n - r - 1, 4))
+//        # right side
+//        answer = max(answer, traverse(r, n + r - 1, 0))
+//        # bottom side
+//        for c in range(0, n * 2 - 1, 2):
+//        answer = max(answer, traverse(n - 1, c, 2))
+//        return answer
+//        3-cpp.
+//        #include <string>
+//#include <vector>
+//using namespace std;
+//        int n;
+//        int conv[2][6];
+//        vector<string> grid;
+//        inline int coord(int r, int c) {
+//        c -= (n - r - 1);
+//        if (grid[r][c] == 'R') return 0;
+//        return 1;
+//        }
+//        inline bool inRange(int r, int c) {
+//        if (r < 0 || r >= n) return false;
+//        if (c < n - r - 1 || c >= n + r) return false;
+//        return true;
+//        }
+//        struct Z{
+//        int r, c, port;
+//        };
+//        inline Z con(int r, int c, int port) {
+//        if ((r + c) % 2 == (n - 1) % 2) {  // right triangle
+//        if (port == 1) return {r, c + 1, 4};
+//        if (port == 3) return {r + 1, c, 0};
+//        if (port == 5) return {r, c - 1, 2};
+//        }
+//        else {  // inverse triangle
+//        if (port == 1) return {r - 1, c, 2};
+//        if (port == 3) return {r, c + 1, 4};
+//        if (port == 5) return {r, c - 1, 0};
+//        }
+//        }
+//        int traverse(int r, int c, int port) {
+//        int ret = 0;
+//        while (inRange(r, c)){
+//        ret++;
+//        int type = 0;
+//        if (grid[r][c - (n - 1 - r)] == 'B') type = 1;
+//        port = conv[type][port];
+//        Z nxt = con(r, c, port);
+//        r = nxt.r;
+//        c = nxt.c;
+//        port = nxt.port;
+//        }
+//        return ret;
+//        }
+//        int solution(vector<string> _grid) {
+//        grid = _grid;
+//        const int R = 0;
+//        const int B = 1;
+//        conv[R][0] = 5, conv[R][2] = 1, conv[R][4] = 3;
+//        conv[B][0] = 3, conv[B][2] = 5, conv[B][4] = 1;
+//        n = grid.size();
+//        int ans = 0;
+//        for (int r=0;r<n;r++){
+//        ans = max(ans, traverse(r, n - r - 1, 4));
+//        ans = max(ans, traverse(r, n + r - 1, 0));
+//        }
+//        for (int c=0;c<n*2-1;c+=2){
+//        ans = max(ans, traverse(n - 1, c, 2));
+//        }
+//        return ans;
+//        }
